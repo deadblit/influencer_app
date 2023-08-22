@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:multiple_result/src/result.dart';
-import 'package:multiple_result/src/unit.dart';
+import 'package:multiple_result/multiple_result.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import 'package:influencer_app/core/error/parse_error_code.dart';
-import 'package:influencer_app/core/shared/parse_error_log.dart';
+import 'package:influencer_app/core/shared/extensions/parse_error_log.dart';
+import 'package:influencer_app/core/shared/extensions/parse_response_exception.dart';
 
 import '../../../user/domain/entities/user.dart';
 
@@ -39,7 +39,7 @@ class ParseAuthRepository implements IAuthRepository {
         return const Result.success(false);
       }
 
-      return Result.error(Exception(response.error?.message ?? 'Login failed'));
+      return Result.error(response.getException());
     }
   }
 
@@ -53,8 +53,7 @@ class ParseAuthRepository implements IAuthRepository {
       } else {
         response.error
             ?.logMessage("logout failed", name: runtimeType.toString());
-        return Result.error(
-            Exception(response.error?.message ?? 'Logout failed'));
+        return Result.error(response.getException());
       }
     }
 

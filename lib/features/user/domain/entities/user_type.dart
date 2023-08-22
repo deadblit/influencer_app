@@ -1,15 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonEnum(valueField: 'value')
-enum UserRole {
+enum UserType {
   admin('admin'),
   manager('manager'),
   user('user'),
   influencer('influencer');
 
-  const UserRole(this.value);
+  const UserType(this.value);
   final String value;
 
-  static UserRole fromValue(String value) =>
-      UserRole.values.firstWhere((element) => element.value == value);
+  static UserType fromValue(String value) =>
+      UserType.values.firstWhere((element) => element.value == value);
 }

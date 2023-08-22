@@ -7,12 +7,14 @@ part of 'task.dart';
 // **************************************************************************
 
 _$_Task _$$_TaskFromJson(Map<String, dynamic> json) => _$_Task(
-      id: json['id'] as int,
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       owner: User.fromJson(json['owner'] as Map<String, dynamic>),
       assignee: User.fromJson(json['assignee'] as Map<String, dynamic>),
-      related: User.fromJson(json['related'] as Map<String, dynamic>),
+      related: json['related'] == null
+          ? null
+          : User.fromJson(json['related'] as Map<String, dynamic>),
       state: $enumDecode(_$TaskStateEnumMap, json['state']),
       doneAt: json['doneAt'] == null
           ? null

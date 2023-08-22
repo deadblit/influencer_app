@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 
-class CampaignListPage extends StatefulWidget {
-  final String title;
-  const CampaignListPage({Key? key, this.title = 'Campanhas'})
-      : super(key: key);
-  @override
-  CampaignListPageState createState() => CampaignListPageState();
-}
+import 'package:influencer_app/core/shared/presentation/pages/base_home/base_home_page.dart';
+import 'package:influencer_app/core/shared/presentation/pages/base_home/home_navigation_bar.dart';
 
-class CampaignListPageState extends State<CampaignListPage> {
+class CampaignListPage extends BaseHomePage {
+  const CampaignListPage({
+    super.key,
+    super.navigationIndex = HomeNavigationBar.destinationCampaigns,
+  });
+
+  Future<void> _loadData() async {
+    return Future.delayed(const Duration(seconds: 2));
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+  Widget buildPageContent(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: _loadData,
+      // Render the todos
+      child: const Center(
+        child: Text('Campanhas'),
       ),
-      body: const Column(
-        children: <Widget>[],
-      ),
+    );
+  }
+
+  @override
+  FloatingActionButton buildActionButton(BuildContext context) {
+    return const FloatingActionButton.large(
+      onPressed: null,
+      child: Icon(Icons.post_add),
     );
   }
 }

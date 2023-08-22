@@ -1,10 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'package:influencer_app/features/auth/login_guard.dart';
+
 import 'auth/auth_module.dart';
 import 'auth/data/repositories/auth_repository_interface.dart';
 import 'auth/data/repositories/parse_auth_repository.dart';
-import 'home/home_module.dart';
+import 'campaign/campaign_module.dart';
 import 'task/task_module.dart';
+import 'user/user_module.dart';
 
 class AppModule extends Module {
   @override
@@ -14,8 +17,11 @@ class AppModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.module('/', module: HomeModule());
+    r.redirect('/', to: '/tasks');
+
     r.module('/auth', module: AuthModule());
-    r.module('/tasks', module: TaskModule());
+    r.module('/tasks', module: TaskModule(), guards: [LoginGuard()]);
+    r.module('/campaigns', module: CampaignModule(), guards: [LoginGuard()]);
+    r.module('/users', module: UserModule(), guards: [LoginGuard()]);
   }
 }

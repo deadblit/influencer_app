@@ -20,12 +20,12 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Task {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   User get owner => throw _privateConstructorUsedError;
   User get assignee => throw _privateConstructorUsedError;
-  User get related => throw _privateConstructorUsedError;
+  User? get related => throw _privateConstructorUsedError;
   TaskState get state => throw _privateConstructorUsedError;
   DateTime? get doneAt => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -42,12 +42,12 @@ abstract class $TaskCopyWith<$Res> {
       _$TaskCopyWithImpl<$Res, Task>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       User owner,
       User assignee,
-      User related,
+      User? related,
       TaskState state,
       DateTime? doneAt,
       String title,
@@ -55,7 +55,7 @@ abstract class $TaskCopyWith<$Res> {
 
   $UserCopyWith<$Res> get owner;
   $UserCopyWith<$Res> get assignee;
-  $UserCopyWith<$Res> get related;
+  $UserCopyWith<$Res>? get related;
 }
 
 /// @nodoc
@@ -76,7 +76,7 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
     Object? updatedAt = null,
     Object? owner = null,
     Object? assignee = null,
-    Object? related = null,
+    Object? related = freezed,
     Object? state = null,
     Object? doneAt = freezed,
     Object? title = null,
@@ -86,7 +86,7 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -103,10 +103,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
           ? _value.assignee
           : assignee // ignore: cast_nullable_to_non_nullable
               as User,
-      related: null == related
+      related: freezed == related
           ? _value.related
           : related // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -144,8 +144,12 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get related {
-    return $UserCopyWith<$Res>(_value.related, (value) {
+  $UserCopyWith<$Res>? get related {
+    if (_value.related == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.related!, (value) {
       return _then(_value.copyWith(related: value) as $Val);
     });
   }
@@ -158,12 +162,12 @@ abstract class _$$_TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       User owner,
       User assignee,
-      User related,
+      User? related,
       TaskState state,
       DateTime? doneAt,
       String title,
@@ -174,7 +178,7 @@ abstract class _$$_TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
   @override
   $UserCopyWith<$Res> get assignee;
   @override
-  $UserCopyWith<$Res> get related;
+  $UserCopyWith<$Res>? get related;
 }
 
 /// @nodoc
@@ -191,7 +195,7 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
     Object? updatedAt = null,
     Object? owner = null,
     Object? assignee = null,
-    Object? related = null,
+    Object? related = freezed,
     Object? state = null,
     Object? doneAt = freezed,
     Object? title = null,
@@ -201,7 +205,7 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -218,10 +222,10 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
           ? _value.assignee
           : assignee // ignore: cast_nullable_to_non_nullable
               as User,
-      related: null == related
+      related: freezed == related
           ? _value.related
           : related // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -251,7 +255,7 @@ class _$_Task implements _Task {
       required this.updatedAt,
       required this.owner,
       required this.assignee,
-      required this.related,
+      this.related,
       required this.state,
       this.doneAt,
       required this.title,
@@ -260,7 +264,7 @@ class _$_Task implements _Task {
   factory _$_Task.fromJson(Map<String, dynamic> json) => _$$_TaskFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -270,7 +274,7 @@ class _$_Task implements _Task {
   @override
   final User assignee;
   @override
-  final User related;
+  final User? related;
   @override
   final TaskState state;
   @override
@@ -327,12 +331,12 @@ class _$_Task implements _Task {
 
 abstract class _Task implements Task {
   const factory _Task(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final User owner,
       required final User assignee,
-      required final User related,
+      final User? related,
       required final TaskState state,
       final DateTime? doneAt,
       required final String title,
@@ -341,7 +345,7 @@ abstract class _Task implements Task {
   factory _Task.fromJson(Map<String, dynamic> json) = _$_Task.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -351,7 +355,7 @@ abstract class _Task implements Task {
   @override
   User get assignee;
   @override
-  User get related;
+  User? get related;
   @override
   TaskState get state;
   @override

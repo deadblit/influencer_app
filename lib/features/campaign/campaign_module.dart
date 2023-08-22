@@ -12,7 +12,11 @@ class CampaignModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child('/', child: (context) => const CampaignListPage());
+    r.child(
+      '/',
+      child: (context) => const CampaignListPage(),
+      transition: TransitionType.noTransition,
+    );
     r.child('/:id', child: (context) => const CampaignDetailPage());
   }
 }

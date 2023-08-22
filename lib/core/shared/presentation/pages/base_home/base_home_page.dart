@@ -4,29 +4,20 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import 'package:influencer_app/features/auth/data/repositories/auth_repository_interface.dart';
-import 'package:influencer_app/features/user/presentation/pages/user_list_page.dart';
 
-import '../../../campaign/presentation/pages/campaign_list_page.dart';
-import '../../../task/presentation/pages/task_list_page.dart';
+import 'home_navigation_bar.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+abstract class BaseHomePage extends StatelessWidget {
+  final int navigationIndex;
 
-  @override
-  HomePageState createState() => HomePageState();
-}
+  const BaseHomePage({
+    super.key,
+    required this.navigationIndex,
+  });
 
-class HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  Widget buildPageContent(BuildContext context);
 
-  final _taskListPage = const TaskListPage();
-  final _campaignListPage = const CampaignListPage();
-  final _userListPage = const UserListPage();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  FloatingActionButton buildActionButton(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +28,7 @@ class HomePageState extends State<HomePage> {
         title: const Text('Aloha Influencer'),
         elevation: 2,
         actions: [
-          PopupMenuButton(
-              // add icon, by default "3 dot" icon
-              // icon: Icon(Icons.book)
-              itemBuilder: (context) {
+          PopupMenuButton(itemBuilder: (context) {
             return [
               const PopupMenuItem<int>(
                 value: 0,
@@ -82,36 +70,9 @@ class HomePageState extends State<HomePage> {
           }),
         ],
       ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: [
-          _taskListPage,
-          _campaignListPage,
-          _userListPage,
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.task),
-            label: 'Tarefas',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.campaign),
-            label: 'Campanhas',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.people),
-            label: 'Equipe',
-          ),
-        ],
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-      ),
+      body: buildPageContent(context),
+      floatingActionButton: buildActionButton(context),
+      bottomNavigationBar: HomeNavigationBar(selectedIndex: navigationIndex),
     );
   }
 }

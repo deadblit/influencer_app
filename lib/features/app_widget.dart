@@ -22,6 +22,7 @@ class AppWidget extends StatelessWidget {
         darkTheme: AppTheme.getDarkTheme(darkColorScheme),
         themeMode: AppTheme.mode,
         routerConfig: Modular.routerConfig,
+        debugShowCheckedModeBanner: false,
       );
     });
   }

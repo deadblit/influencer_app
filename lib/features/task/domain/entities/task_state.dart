@@ -10,4 +10,7 @@ enum TaskState {
 
   const TaskState(this.value);
   final String value;
+
+  static TaskState fromValue(String value) =>
+      TaskState.values.firstWhere((element) => element.value == value);
 }

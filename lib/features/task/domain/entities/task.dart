@@ -10,12 +10,12 @@ part 'task.g.dart';
 @freezed
 class Task with _$Task {
   const factory Task({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required User owner,
     required User assignee,
-    required User related,
+    User? related,
     required TaskState state,
     DateTime? doneAt,
     required String title,

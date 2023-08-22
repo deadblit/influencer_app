@@ -20,13 +20,13 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  bool get emailVerified => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  UserRole get role => throw _privateConstructorUsedError;
+  UserType get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,13 +39,13 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      String name,
+      bool emailVerified,
+      String username,
       String email,
-      String password,
-      UserRole role});
+      UserType type});
 }
 
 /// @nodoc
@@ -64,16 +64,16 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? name = null,
+    Object? emailVerified = null,
+    Object? username = null,
     Object? email = null,
-    Object? password = null,
-    Object? role = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -82,22 +82,22 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      emailVerified: null == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as UserRole,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as UserType,
     ) as $Val);
   }
 }
@@ -109,13 +109,13 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      String name,
+      bool emailVerified,
+      String username,
       String email,
-      String password,
-      UserRole role});
+      UserType type});
 }
 
 /// @nodoc
@@ -130,16 +130,16 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? id = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? name = null,
+    Object? emailVerified = null,
+    Object? username = null,
     Object? email = null,
-    Object? password = null,
-    Object? role = null,
+    Object? type = null,
   }) {
     return _then(_$_User(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -148,22 +148,22 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      emailVerified: null == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as UserRole,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as UserType,
     ));
   }
 }
@@ -175,31 +175,32 @@ class _$_User implements _User {
       {required this.id,
       required this.createdAt,
       required this.updatedAt,
-      required this.name,
+      this.emailVerified = false,
+      required this.username,
       required this.email,
-      required this.password,
-      required this.role});
+      required this.type});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
   @override
-  final String name;
+  @JsonKey()
+  final bool emailVerified;
+  @override
+  final String username;
   @override
   final String email;
   @override
-  final String password;
-  @override
-  final UserRole role;
+  final UserType type;
 
   @override
   String toString() {
-    return 'User(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, email: $email, password: $password, role: $role)';
+    return 'User(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, emailVerified: $emailVerified, username: $username, email: $email, type: $type)';
   }
 
   @override
@@ -212,17 +213,18 @@ class _$_User implements _User {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.emailVerified, emailVerified) ||
+                other.emailVerified == emailVerified) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.role, role) || other.role == role));
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, createdAt, updatedAt, name, email, password, role);
+  int get hashCode => Object.hash(runtimeType, id, createdAt, updatedAt,
+      emailVerified, username, email, type);
 
   @JsonKey(ignore: true)
   @override
@@ -240,30 +242,30 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final String name,
+      final bool emailVerified,
+      required final String username,
       required final String email,
-      required final String password,
-      required final UserRole role}) = _$_User;
+      required final UserType type}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
-  String get name;
+  bool get emailVerified;
+  @override
+  String get username;
   @override
   String get email;
   @override
-  String get password;
-  @override
-  UserRole get role;
+  UserType get type;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
