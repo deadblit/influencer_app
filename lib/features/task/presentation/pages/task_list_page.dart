@@ -4,12 +4,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:influencer_app/features/task/domain/entities/task_state.dart';
-import 'package:influencer_app/features/task/presentation/pages/task_list_store.dart';
-
 import '../../../../core/shared/presentation/pages/base_home/base_home_page.dart';
 import '../../../../core/shared/presentation/pages/base_home/home_navigation_bar.dart';
+import '../../domain/entities/task_state.dart';
 import '../widgets/task_card.dart';
+
+import 'task_list_store.dart';
 
 class TaskListPage extends BaseHomePage {
   final _store = Modular.get<TaskListStore>();

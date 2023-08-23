@@ -1,9 +1,10 @@
 import 'package:multiple_result/multiple_result.dart';
 
-import 'package:influencer_app/features/task/domain/entities/task.dart';
+import '../../../../core/error/failure.dart';
+import '../entities/task.dart';
 
-abstract class ITaskRepository {
-  Future<Result<Task, Exception>> create({
+abstract class TaskRepository {
+  Future<Result<Task, Failure>> create({
     required String ownerId,
     required String assigneeId,
     String? relatedId,
@@ -11,13 +12,13 @@ abstract class ITaskRepository {
     String? description,
   });
 
-  Future<Result<Task?, Exception>> delete(String id);
+  Future<Result<Task?, Failure>> delete(String id);
 
-  Future<Result<Task?, Exception>> get(String id);
+  Future<Result<Task?, Failure>> get(String id);
 
-  Future<Result<List<Task>, Exception>> getAll();
+  Future<Result<List<Task>, Failure>> getAll();
 
-  Future<Result<Task?, Exception>> update({
+  Future<Result<Task?, Failure>> update({
     required String id,
     required String ownerId,
     required String assigneeId,

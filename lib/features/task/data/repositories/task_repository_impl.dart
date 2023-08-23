@@ -1,0 +1,103 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:multiple_result/multiple_result.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+import '../../../../core/error/failure.dart';
+import '../../../../core/error/server_failure.dart';
+import '../../../../core/shared/extensions/exception_log.dart';
+import '../../../user/data/data_sources/parse_user_datasource.dart';
+import '../../../user/data/mappers/user_mapper.dart';
+import '../../domain/entities/task.dart';
+import '../../domain/repositories/task_repository.dart';
+import '../data_sources/parse_task_datasource.dart';
+import '../mappers/task_mappers.dart';
+
+class TaskRepositoryImpl implements TaskRepository {
+  final _taskDatasource = Modular.get<ParseTaskDatasource>();
+  final _userDatasource = Modular.get<ParseUserDatasource>();
+
+  @override
+  Future<Result<Task, Failure>> create({
+    required String ownerId,
+    required String assigneeId,
+    String? relatedId,
+    required String title,
+    String? description,
+  }) async {
+    late final ParseObject model;
+    late final Task entity;
+    try {
+      model = await _taskDatasource.create(
+        ownerId: ownerId,
+        assigneeId: assigneeId,
+        relatedId: relatedId,
+        title: title,
+        description: description,
+      );
+      entity = await _convertTask(model);
+    } on Exception catch (error) {
+      error.logMessage('create() error', name: runtimeType.toString());
+      return Result.error(ServerFailure.fromError(error));
+    }
+
+    return Result.success(entity);
+  }
+
+  @override
+  Future<Result<Task?, Failure>> delete(String id) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Result<Task?, Failure>> get(String id) {
+    // TODO: implement get
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Result<List<Task>, Failure>> getAll() async {
+    late final List<ParseObject> modelList;
+    late final List<Task> entityList;
+    try {
+      modelList = await _taskDatasource.getAll();
+      entityList = await _convertTaskList(modelList);
+    } on Exception catch (error) {
+      error.logMessage('create() error', name: runtimeType.toString());
+      return Result.error(ServerFailure.fromError(error));
+    }
+
+    return Result.success(entityList);
+  }
+
+  @override
+  Future<Result<Task?, Failure>> update({
+    required String id,
+    required String ownerId,
+    required String assigneeId,
+    String? relatedId,
+    required String state,
+    DateTime? doneAt,
+    required String title,
+    String? description,
+  }) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
+
+  Future<Task> _convertTask(ParseObject parseTask) async {
+    final modelList = await _userDatasource.getAll();
+    final userList = modelList.toUserList();
+    final task = parseTask.toTask(userList);
+
+    return task;
+  }
+
+  Future<List<Task>> _convertTaskList(List<ParseObject> parseTaskList) async {
+    final modelList = await _userDatasource.getAll();
+    final userList = modelList.toUserList();
+    final taskList = parseTaskList.toTaskList(userList);
+
+    return taskList;
+  }
+}

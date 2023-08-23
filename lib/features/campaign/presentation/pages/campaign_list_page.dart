@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:influencer_app/core/shared/presentation/pages/base_home/base_home_page.dart';
-import 'package:influencer_app/core/shared/presentation/pages/base_home/home_navigation_bar.dart';
+import '../../../../core/shared/presentation/pages/base_home/base_home_page.dart';
+import '../../../../core/shared/presentation/pages/base_home/home_navigation_bar.dart';
 
 class CampaignListPage extends BaseHomePage {
   const CampaignListPage({

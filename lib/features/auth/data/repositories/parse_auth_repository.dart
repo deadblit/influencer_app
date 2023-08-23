@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:multiple_result/multiple_result.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import 'package:influencer_app/core/error/parse_error_code.dart';
-import 'package:influencer_app/core/shared/extensions/parse_error_log.dart';
-import 'package:influencer_app/core/shared/extensions/parse_response_exception.dart';
-
+import '../../../../core/error/parse_error_code.dart';
+import '../../../../core/shared/extensions/parse_error_log.dart';
+import '../../../../core/shared/extensions/parse_response_exception.dart';
 import '../../../user/domain/entities/user.dart';
 
 import 'auth_repository_interface.dart';

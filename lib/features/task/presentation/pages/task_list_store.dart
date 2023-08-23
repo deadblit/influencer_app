@@ -2,17 +2,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import 'package:influencer_app/features/task/domain/entities/task.dart';
+import 'package:influencer_app/core/usecases/usecase.dart';
+import 'package:influencer_app/features/task/domain/use_cases/get_all_tasks.dart';
 
-import '../../data/repositories/task_repository_interface.dart';
+import '../../domain/entities/task.dart';
 
 part 'task_list_store.g.dart';
 
 class TaskListStore = TaskListStoreBase with _$TaskListStore;
 
 abstract class TaskListStoreBase with Store {
-  final ITaskRepository repository;
-
   @observable
   bool isLoading = false;
 
@@ -22,12 +21,13 @@ abstract class TaskListStoreBase with Store {
   @observable
   List<Task> taskList = [];
 
-  TaskListStoreBase(this.repository);
+  TaskListStoreBase();
 
   @action
   Future<void> getAll() async {
+    final getAllTasks = Modular.get<GetAllTasks>();
     isLoading = true;
-    final result = await repository.getAll();
+    final result = await getAllTasks(NoParams());
     isLoading = false;
 
     switch (result) {

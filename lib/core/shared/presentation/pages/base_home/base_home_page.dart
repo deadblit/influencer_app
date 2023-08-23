@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import 'package:influencer_app/features/auth/data/repositories/auth_repository_interface.dart';
+import '../../../../../features/auth/data/repositories/auth_repository_interface.dart';
 
 import 'home_navigation_bar.dart';
 

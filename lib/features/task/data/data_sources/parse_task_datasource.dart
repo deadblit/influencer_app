@@ -1,13 +1,12 @@
 import 'dart:developer';
 
-import 'package:multiple_result/multiple_result.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import 'package:influencer_app/core/shared/extensions/parse_error_log.dart';
-import 'package:influencer_app/core/shared/extensions/parse_response_exception.dart';
+import '../../../../core/shared/extensions/parse_error_log.dart';
+import '../../../../core/shared/extensions/parse_response_exception.dart';
 
 class ParseTaskDatasource {
-  Future<Result<ParseObject, Exception>> create({
+  Future<ParseObject> create({
     required String ownerId,
     required String assigneeId,
     String? relatedId,
@@ -28,38 +27,45 @@ class ParseTaskDatasource {
         "create task failed",
         name: runtimeType.toString(),
       );
-      return Result.error(response.getException());
+      throw response.getException();
     }
 
     final object = response.results?.first as ParseObject;
 
-    return Result.success(object);
+    return object;
   }
 
-  Future<Result<Unit, Exception>> delete(String id) {
+  Future<void> delete(String id) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
-  Future<Result<ParseObject, Exception>> get(String id) {
+  Future<ParseObject> get(String id) {
     // TODO: implement get
     throw UnimplementedError();
   }
 
-  Future<Result<List<ParseObject>, Exception>> getAll() async {
+  Future<List<ParseObject>> getAll() async {
     final ParseResponse response;
     try {
       response = await ParseObject('Task').getAll();
+      if (!response.success) {
+        response.error?.logMessage(
+          "getAll failed",
+          name: runtimeType.toString(),
+        );
+        throw response.getException();
+      }
     } on Exception catch (error) {
       log("getAll failed", error: error, name: runtimeType.toString());
-      return Result.error(error);
+      rethrow;
     }
 
     final tasks = response.results?.cast<ParseObject>() ?? [];
-    return Result.success(tasks);
+    return tasks;
   }
 
-  Future<Result<ParseObject, Exception>> update({
+  Future<ParseObject> update({
     required String id,
     required String ownerId,
     required String assigneeId,

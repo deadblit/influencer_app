@@ -1,10 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:influencer_app/features/auth/login_guard.dart';
-
 import 'auth/auth_module.dart';
 import 'auth/data/repositories/auth_repository_interface.dart';
 import 'auth/data/repositories/parse_auth_repository.dart';
+import 'auth/login_guard.dart';
 import 'campaign/campaign_module.dart';
 import 'task/task_module.dart';
 import 'user/user_module.dart';

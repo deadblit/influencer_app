@@ -1,15 +1,14 @@
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import 'package:influencer_app/features/user/domain/entities/user_type.dart';
-
 import '../../domain/entities/user.dart';
+import '../../domain/entities/user_type.dart';
 
-extension ToEntity on ParseObject {
+extension UserMapper on ParseObject {
   User toUser() {
     final user = User(
-      id: get("objectId"),
-      createdAt: get("createdAt"),
-      updatedAt: get("updatedAt"),
+      id: objectId!,
+      createdAt: createdAt!,
+      updatedAt: updatedAt!,
       emailVerified: get("emailVerified") ?? false,
       username: get("username"),
       email: get("email") ?? '',
@@ -17,5 +16,13 @@ extension ToEntity on ParseObject {
     );
 
     return user;
+  }
+}
+
+extension UserListMapper on List<ParseObject> {
+  List<User> toUserList() {
+    final userList = map((e) => e.toUser()).toList();
+
+    return userList;
   }
 }
