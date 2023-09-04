@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/error/server_failure.dart';
+import '../../../../core/failure/failure.dart';
+import '../../../../core/failure/server_failure.dart';
 import '../../data/mappers/user_mapper.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/user_type.dart';

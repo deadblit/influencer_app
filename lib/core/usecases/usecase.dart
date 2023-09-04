@@ -1,6 +1,6 @@
 import 'package:multiple_result/multiple_result.dart';
 
-import '../error/failure.dart';
+import '../failure/failure.dart';
 
 abstract class Usecase<Type, Params> {
   Future<Result<Type, Failure>> call(Params params);

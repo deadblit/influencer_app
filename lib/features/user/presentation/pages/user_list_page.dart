@@ -30,4 +30,7 @@ class UserListPage extends BaseHomePage {
       child: Icon(Icons.group_add),
     );
   }
+
+  @override
+  void reload() {}
 }

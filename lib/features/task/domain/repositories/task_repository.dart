@@ -1,10 +1,10 @@
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../core/error/failure.dart';
+import '../../../../core/failure/failure.dart';
 import '../entities/task.dart';
 
 abstract class TaskRepository {
-  Future<Result<Task, Failure>> create({
+  Future<Result<Unit, Failure>> create({
     required String ownerId,
     required String assigneeId,
     String? relatedId,
@@ -12,13 +12,13 @@ abstract class TaskRepository {
     String? description,
   });
 
-  Future<Result<Task?, Failure>> delete(String id);
+  Future<Result<Unit, Failure>> delete(String id);
 
-  Future<Result<Task?, Failure>> get(String id);
+  Future<Result<Task, Failure>> get(String id);
 
   Future<Result<List<Task>, Failure>> getAll();
 
-  Future<Result<Task?, Failure>> update({
+  Future<Result<Unit, Failure>> update({
     required String id,
     required String ownerId,
     required String assigneeId,

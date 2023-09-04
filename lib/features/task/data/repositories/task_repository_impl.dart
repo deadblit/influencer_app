@@ -2,8 +2,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/error/server_failure.dart';
+import '../../../../core/failure/failure.dart';
+import '../../../../core/failure/server_failure.dart';
 import '../../../../core/shared/extensions/exception_log.dart';
 import '../../../user/data/data_sources/parse_user_datasource.dart';
 import '../../../user/data/mappers/user_mapper.dart';
@@ -17,42 +17,54 @@ class TaskRepositoryImpl implements TaskRepository {
   final _userDatasource = Modular.get<ParseUserDatasource>();
 
   @override
-  Future<Result<Task, Failure>> create({
+  Future<Result<Unit, Failure>> create({
     required String ownerId,
     required String assigneeId,
     String? relatedId,
     required String title,
     String? description,
   }) async {
-    late final ParseObject model;
-    late final Task entity;
     try {
-      model = await _taskDatasource.create(
+      await _taskDatasource.create(
         ownerId: ownerId,
         assigneeId: assigneeId,
         relatedId: relatedId,
         title: title,
         description: description,
       );
-      entity = await _convertTask(model);
     } on Exception catch (error) {
       error.logMessage('create() error', name: runtimeType.toString());
       return Result.error(ServerFailure.fromError(error));
     }
 
+    return const Result.success(unit);
+  }
+
+  @override
+  Future<Result<Unit, Failure>> delete(String id) async {
+    try {
+      await _taskDatasource.delete(id);
+    } on Exception catch (error) {
+      error.logMessage('delete() error', name: runtimeType.toString());
+      return Result.error(ServerFailure.fromError(error));
+    }
+
+    return const Result.success(unit);
+  }
+
+  @override
+  Future<Result<Task, Failure>> get(String id) async {
+    late final ParseObject model;
+    late final Task entity;
+    try {
+      model = await _taskDatasource.get(id);
+      entity = await _convertTask(model);
+    } on Exception catch (error) {
+      error.logMessage('get() error', name: runtimeType.toString());
+      return Result.error(ServerFailure.fromError(error));
+    }
+
     return Result.success(entity);
-  }
-
-  @override
-  Future<Result<Task?, Failure>> delete(String id) {
-    // TODO: implement delete
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Result<Task?, Failure>> get(String id) {
-    // TODO: implement get
-    throw UnimplementedError();
   }
 
   @override
@@ -62,6 +74,9 @@ class TaskRepositoryImpl implements TaskRepository {
     try {
       modelList = await _taskDatasource.getAll();
       entityList = await _convertTaskList(modelList);
+      entityList.sort(
+        (a, b) => a.updatedAt.compareTo(b.updatedAt) * -1,
+      );
     } on Exception catch (error) {
       error.logMessage('create() error', name: runtimeType.toString());
       return Result.error(ServerFailure.fromError(error));
@@ -71,7 +86,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Result<Task?, Failure>> update({
+  Future<Result<Unit, Failure>> update({
     required String id,
     required String ownerId,
     required String assigneeId,
@@ -80,9 +95,24 @@ class TaskRepositoryImpl implements TaskRepository {
     DateTime? doneAt,
     required String title,
     String? description,
-  }) {
-    // TODO: implement update
-    throw UnimplementedError();
+  }) async {
+    try {
+      await _taskDatasource.update(
+        id: id,
+        ownerId: ownerId,
+        assigneeId: assigneeId,
+        relatedId: relatedId,
+        state: state,
+        doneAt: doneAt,
+        title: title,
+        description: description,
+      );
+    } on Exception catch (error) {
+      error.logMessage('update() error', name: runtimeType.toString());
+      return Result.error(ServerFailure.fromError(error));
+    }
+
+    return const Result.success(unit);
   }
 
   Future<Task> _convertTask(ParseObject parseTask) async {

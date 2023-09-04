@@ -6,7 +6,17 @@ extension GetException on ParseResponse {
     final message = error?.message;
 
     if (exception == null) {
-      return Exception(message);
+      final parseError = results?.firstWhere(
+        (element) => element.runtimeType == ParseError,
+        orElse: () => null,
+      );
+
+      if (parseError == null) {
+        return Exception(message ?? 'Erro do Parse desconhecido');
+      }
+
+      return Exception(
+          '${parseError.message} (type: ${parseError.type}, code: ${parseError.code})');
     }
 
     return exception;

@@ -5,7 +5,7 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:influencer_app/core/usecases/usecase.dart';
 import 'package:influencer_app/features/task/domain/use_cases/get_all_tasks.dart';
 
-import '../../domain/entities/task.dart';
+import '../../../domain/entities/task.dart';
 
 part 'task_list_store.g.dart';
 

@@ -19,6 +19,8 @@ abstract class BaseHomePage extends StatelessWidget {
 
   FloatingActionButton buildActionButton(BuildContext context);
 
+  void reload();
+
   @override
   Widget build(BuildContext context) {
     final messenger = ScaffoldMessenger.of(context);
@@ -28,6 +30,12 @@ abstract class BaseHomePage extends StatelessWidget {
         title: const Text('Aloha Influencer'),
         elevation: 2,
         actions: [
+          IconButton(
+            onPressed: () {
+              reload();
+            },
+            icon: const Icon(Icons.replay_outlined),
+          ),
           PopupMenuButton(itemBuilder: (context) {
             return [
               const PopupMenuItem<int>(

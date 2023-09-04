@@ -31,4 +31,7 @@ class CampaignListPage extends BaseHomePage {
       child: Icon(Icons.post_add),
     );
   }
+
+  @override
+  void reload() {}
 }

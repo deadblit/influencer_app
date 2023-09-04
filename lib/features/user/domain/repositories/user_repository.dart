@@ -1,6 +1,6 @@
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../core/error/failure.dart';
+import '../../../../core/failure/failure.dart';
 import '../entities/user.dart';
 import '../entities/user_type.dart';
 

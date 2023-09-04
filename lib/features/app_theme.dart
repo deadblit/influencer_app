@@ -10,7 +10,7 @@ class AppTheme {
     brightness: Brightness.dark,
   );
 
-  static const mode = ThemeMode.system;
+  static const mode = ThemeMode.dark;
 
   static ThemeData getLightTheme(ColorScheme? lightColorScheme) {
     return ThemeData(
