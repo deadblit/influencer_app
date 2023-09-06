@@ -65,6 +65,14 @@ mixin _$TaskListStore on TaskListStoreBase, Store {
     return _$getAllAsyncAction.run(() => super.getAll());
   }
 
+  late final _$deleteAsyncAction =
+      AsyncAction('TaskListStoreBase.delete', context: context);
+
+  @override
+  Future<void> delete(Task task) {
+    return _$deleteAsyncAction.run(() => super.delete(task));
+  }
+
   late final _$TaskListStoreBaseActionController =
       ActionController(name: 'TaskListStoreBase', context: context);
 

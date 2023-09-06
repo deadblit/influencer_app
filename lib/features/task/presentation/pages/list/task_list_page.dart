@@ -111,11 +111,10 @@ class TaskListPage extends BaseHomePage {
             );
           },
         );
-        // log('Deletion confirmed: $confirmed');
         return confirmed;
       },
       onDismissed: (DismissDirection direction) {
-        // _store.
+        _store.delete(task);
       },
       child: TaskCard(
         done: task.state == TaskState.done,
