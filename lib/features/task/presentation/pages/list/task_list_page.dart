@@ -120,8 +120,9 @@ class TaskListPage extends BaseHomePage {
         done: task.state == TaskState.done,
         title: task.title,
         description: task.description,
-        onTap: () {
-          Modular.to.pushNamed('/tasks/${task.id}');
+        onTap: () async {
+          await Modular.to.pushNamed('/tasks/${task.id}');
+          reload();
         },
       ),
     );

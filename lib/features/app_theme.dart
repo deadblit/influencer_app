@@ -21,7 +21,7 @@ class AppTheme {
 
   static ThemeData getDarkTheme(ColorScheme? darkColorScheme) {
     return ThemeData(
-      colorScheme: darkColorScheme ?? AppTheme.defaultLightColorScheme,
+      colorScheme: darkColorScheme ?? AppTheme.defaultDarkColorScheme,
       useMaterial3: true,
     );
   }
