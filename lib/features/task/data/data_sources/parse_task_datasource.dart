@@ -2,9 +2,6 @@ import 'dart:developer';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import 'package:influencer_app/core/shared/extensions/exception_log.dart';
-
-import '../../../../core/shared/extensions/parse_error_log.dart';
 import '../../../../core/shared/extensions/parse_response_exception.dart';
 
 class ParseTaskDatasource {
@@ -27,14 +24,10 @@ class ParseTaskDatasource {
     }
 
     final response = await task.save();
-    if (!response.success) {
-      final error = response.getException();
-      error.logMessage(
-        "create task failed",
-        name: runtimeType.toString(),
-      );
-      throw error;
-    }
+    response.throwOnFailure(
+      "create task failed",
+      runtimeType.toString(),
+    );
   }
 
   Future<void> delete(String id) async {
@@ -43,13 +36,10 @@ class ParseTaskDatasource {
       final task = ParseObject('Task')..set('objectId', id);
 
       response = await task.delete();
-      if (!response.success) {
-        response.error?.logMessage(
-          "delete failed",
-          name: runtimeType.toString(),
-        );
-        throw response.getException();
-      }
+      response.throwOnFailure(
+        "delete task failed",
+        runtimeType.toString(),
+      );
     } on Exception catch (error) {
       log("delete failed", error: error, name: runtimeType.toString());
       rethrow;
@@ -74,13 +64,10 @@ class ParseTaskDatasource {
     final ParseResponse response;
     try {
       response = await ParseObject('Task').getAll();
-      if (!response.success) {
-        response.error?.logMessage(
-          "getAll failed",
-          name: runtimeType.toString(),
-        );
-        throw response.getException();
-      }
+      response.throwOnFailure(
+        "get all tasks failed",
+        runtimeType.toString(),
+      );
     } on Exception catch (error) {
       log("getAll failed", error: error, name: runtimeType.toString());
       rethrow;
@@ -106,20 +93,20 @@ class ParseTaskDatasource {
         ..set('objectId', id)
         ..set('owner', ParseObject('_User')..objectId = ownerId)
         ..set('assignee', ParseObject('_User')..objectId = assigneeId)
-        ..set('related', ParseObject('_User')..objectId = relatedId)
         ..set('state', state)
         ..set('doneAt', doneAt)
         ..set('title', title)
         ..set('description', description);
 
-      response = await task.save();
-      if (!response.success) {
-        response.error?.logMessage(
-          "update failed",
-          name: runtimeType.toString(),
-        );
-        throw response.getException();
+      if (relatedId != null) {
+        task.set('related', ParseObject('_User')..objectId = relatedId);
       }
+
+      response = await task.save();
+      response.throwOnFailure(
+        "update task failed",
+        runtimeType.toString(),
+      );
     } on Exception catch (error) {
       log("update failed", error: error, name: runtimeType.toString());
       rethrow;

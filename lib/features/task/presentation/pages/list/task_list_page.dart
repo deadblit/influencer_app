@@ -122,7 +122,7 @@ class TaskListPage extends BaseHomePage {
         title: task.title,
         description: task.description,
         onTap: () {
-          // Modular.to.pushNamed('/tasks/${task.id}');
+          Modular.to.pushNamed('/tasks/${task.id}');
         },
       ),
     );

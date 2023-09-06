@@ -1,6 +1,8 @@
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-extension GetException on ParseResponse {
+import 'package:influencer_app/core/shared/extensions/exception_log.dart';
+
+extension Exceptions on ParseResponse {
   Exception getException() {
     final exception = error?.exception;
     final message = error?.message;
@@ -20,5 +22,16 @@ extension GetException on ParseResponse {
     }
 
     return exception;
+  }
+
+  void throwOnFailure(String logMessage, String name) {
+    if (!success) {
+      final error = getException();
+      error.logMessage(
+        logMessage,
+        name: name,
+      );
+      throw error;
+    }
   }
 }

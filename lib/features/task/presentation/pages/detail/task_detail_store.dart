@@ -4,12 +4,14 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import 'package:influencer_app/core/usecases/usecase.dart';
+import 'package:influencer_app/features/task/domain/entities/task_state.dart';
 import 'package:influencer_app/features/task/domain/use_cases/create_task.dart';
 import 'package:influencer_app/features/user/domain/entities/user.dart';
 import 'package:influencer_app/features/user/domain/usecases/get_all_users.dart';
 
 import '../../../../../core/shared/utils/string_utils.dart';
 import '../../../domain/use_cases/get_task.dart';
+import '../../../domain/use_cases/update_task.dart';
 
 part 'task_detail_store.g.dart';
 
@@ -25,6 +27,9 @@ abstract class TaskDetailStoreBase with Store {
 
   @observable
   bool isLoading = false;
+
+  @observable
+  bool isTaskLoaded = false;
 
   @observable
   String? errorMessage;
@@ -49,6 +54,9 @@ abstract class TaskDetailStoreBase with Store {
 
   @observable
   String? description;
+
+  @observable
+  bool isDone = false;
 
   @observable
   TaskDetailErrorState error = TaskDetailErrorState();
@@ -89,9 +97,9 @@ abstract class TaskDetailStoreBase with Store {
             task.related == null ? -1 : userList.indexOf(task.related!);
         title = task.title;
         description = task.description;
-
+        isDone = task.state == TaskState.done;
         errorMessage = null;
-
+        isTaskLoaded = true;
         break;
 
       case Error():
@@ -111,14 +119,16 @@ abstract class TaskDetailStoreBase with Store {
         userList = result.success;
         errorMessage = null;
 
-        final currentUser = await ParseUser.currentUser();
-        final index = userList.indexWhere(
-          (element) => element.username == currentUser?.username,
-        );
+        if (taskId == null) {
+          final currentUser = await ParseUser.currentUser();
+          final index = userList.indexWhere(
+            (element) => element.username == currentUser?.username,
+          );
 
-        if (index > 0) {
-          ownerIndex = index;
-          assigneeIndex = index;
+          if (index > 0) {
+            ownerIndex = index;
+            assigneeIndex = index;
+          }
         }
 
         break;
@@ -167,26 +177,35 @@ abstract class TaskDetailStoreBase with Store {
 
   @action
   Future<void> update() async {
-    // final createTask = Modular.get<UpdateTask>();
-    // isLoading = true;
-    // final result = await createTask(CreateTaskParams(
-    //   ownerId: owner!.id,
-    //   assigneeId: assignee!.id,
-    //   relatedId: related?.id,
-    //   title: title!,
-    //   description: description,
-    // ));
-    // isLoading = false;
+    final updateTask = Modular.get<UpdateTask>();
+    isLoading = true;
 
-    // switch (result) {
-    //   case Success():
-    //     errorMessage = null;
-    //     shouldClosePage = true;
-    //     break;
+    final owner = userList[ownerIndex];
+    final assignee = userList[assigneeIndex];
+    final related = relatedIndex == -1 ? null : userList[ownerIndex];
 
-    //   case Error():
-    //     errorMessage = result.error.toString();
-    // }
+    final result = await updateTask(UpdateTaskParams(
+      id: taskId!,
+      ownerId: owner.id,
+      assigneeId: assignee.id,
+      relatedId: related?.id,
+      title: title!,
+      description: description,
+      state: isDone ? TaskState.done : TaskState.created,
+      doneAt: isDone ? DateTime.now() : null,
+    ));
+
+    isLoading = false;
+
+    switch (result) {
+      case Success():
+        errorMessage = null;
+        shouldClosePage = true;
+        break;
+
+      case Error():
+        errorMessage = result.error.toString();
+    }
   }
 
   @action

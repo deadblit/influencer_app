@@ -48,6 +48,22 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
     });
   }
 
+  late final _$isTaskLoadedAtom =
+      Atom(name: 'TaskDetailStoreBase.isTaskLoaded', context: context);
+
+  @override
+  bool get isTaskLoaded {
+    _$isTaskLoadedAtom.reportRead();
+    return super.isTaskLoaded;
+  }
+
+  @override
+  set isTaskLoaded(bool value) {
+    _$isTaskLoadedAtom.reportWrite(value, super.isTaskLoaded, () {
+      super.isTaskLoaded = value;
+    });
+  }
+
   late final _$errorMessageAtom =
       Atom(name: 'TaskDetailStoreBase.errorMessage', context: context);
 
@@ -176,6 +192,22 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
     });
   }
 
+  late final _$isDoneAtom =
+      Atom(name: 'TaskDetailStoreBase.isDone', context: context);
+
+  @override
+  bool get isDone {
+    _$isDoneAtom.reportRead();
+    return super.isDone;
+  }
+
+  @override
+  set isDone(bool value) {
+    _$isDoneAtom.reportWrite(value, super.isDone, () {
+      super.isDone = value;
+    });
+  }
+
   late final _$errorAtom =
       Atom(name: 'TaskDetailStoreBase.error', context: context);
 
@@ -276,6 +308,7 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
     return '''
 userList: ${userList},
 isLoading: ${isLoading},
+isTaskLoaded: ${isTaskLoaded},
 errorMessage: ${errorMessage},
 shouldClosePage: ${shouldClosePage},
 taskId: ${taskId},
@@ -284,6 +317,7 @@ assigneeIndex: ${assigneeIndex},
 relatedIndex: ${relatedIndex},
 title: ${title},
 description: ${description},
+isDone: ${isDone},
 error: ${error},
 canSave: ${canSave}
     ''';

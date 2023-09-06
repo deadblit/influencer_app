@@ -21,10 +21,18 @@ class TaskDetailPage extends StatefulWidget {
 class TaskDetailPageState extends State<TaskDetailPage> {
   final _store = Modular.get<TaskDetailStore>();
   final List<ReactionDisposer> _disposers = [];
+  final _formKey = GlobalKey<FormState>();
+
+  late final TextEditingController _titleController;
+  late final TextEditingController _descriptionController;
 
   @override
   void initState() {
     super.initState();
+
+    _titleController = TextEditingController();
+    _descriptionController = TextEditingController();
+
     _store.setupValidations();
 
     _disposers.addAll([
@@ -50,6 +58,15 @@ class TaskDetailPageState extends State<TaskDetailPage> {
           }
         },
       ),
+      reaction(
+        (_) => _store.isTaskLoaded,
+        (value) {
+          if (value) {
+            _titleController.text = _store.title ?? '';
+            _descriptionController.text = _store.description ?? '';
+          }
+        },
+      ),
     ]);
 
     if (!widget.isNewTask) {
@@ -60,6 +77,9 @@ class TaskDetailPageState extends State<TaskDetailPage> {
 
   @override
   void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+
     for (final d in _disposers) {
       d();
     }
@@ -74,84 +94,115 @@ class TaskDetailPageState extends State<TaskDetailPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Form(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: <Widget>[
-              Observer(
-                builder: (_) => TextFormField(
-                  key: Key(_store.title ?? 'title'),
-                  initialValue: _store.title,
-                  onChanged: (value) => _store.title = value,
-                  decoration: InputDecoration(
-                    labelText: 'Título',
-                    hintText: 'Digite o título da tarefa',
-                    errorText: _store.error.title,
-                  ),
-                ),
-              ),
-              Observer(
-                builder: (_) => TextFormField(
-                  key: Key(_store.description ?? 'description'),
-                  initialValue: _store.description,
-                  onChanged: (value) => _store.description = value,
-                  decoration: const InputDecoration(
-                    labelText: 'Descrição',
-                    hintText: 'Digite a descrição da tarefa',
-                  ),
-                ),
-              ),
-              Observer(
-                builder: (_) => BottomSheetMenu(
-                  items: _store.userList.map((e) => e.username).toList(),
-                  selectedItemIndex: _store.ownerIndex,
-                  onSelectedItemIndex: (index) {
-                    _store.ownerIndex = index;
-                    _store.assigneeIndex = index;
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Relator',
-                    hintText: 'Selecione o relator da tarefa',
-                    errorText: _store.error.owner,
-                  ),
-                ),
-              ),
-              // Observer(
-              //   builder: (_) => BottomSheetMenu(
-              //     items: _store.userList.map((e) => e.username).toList(),
-              //     selectedItemIndex: _store.assigneeIndex,
-              //     onSelectedItemIndex: (index) =>
-              //         _store.assigneeIndex = index,
-              //     decoration: InputDecoration(
-              //       labelText: 'Responsável',
-              //       hintText:
-              //           'Selecione o responsável pela execução da tarefa',
-              //       errorText: _store.error.assignee,
-              //     ),
-              //   ),
-              // ),
-              // Observer(
-              //   builder: (_) => BottomSheetMenu(
-              //     items: _store.userList.map((e) => e.username).toList(),
-              //     selectedItemIndex: _store.relatedIndex,
-              //     onSelectedItemIndex: (index) => _store.relatedIndex = index,
-              //     decoration: const InputDecoration(
-              //       labelText: 'Relacionado',
-              //       hintText: 'Selecione alguém relacionado a essa tarefa',
-              //     ),
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                  onPressed: _store.validateAll,
-                  child: const Text('Salvar'),
-                ),
-              ),
-            ],
+      body: Column(
+        children: [
+          Observer(
+            builder: (_) {
+              if (_store.isLoading) {
+                return const LinearProgressIndicator();
+              } else {
+                return Container();
+              }
+            },
           ),
-        ),
+          Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _titleController,
+                    // initialValue: _store.title,
+                    onChanged: (value) => _store.title = value,
+                    decoration: InputDecoration(
+                      labelText: 'Título',
+                      hintText: 'Digite o título da tarefa',
+                      errorText: _store.error.title,
+                    ),
+                  ),
+
+                  TextFormField(
+                    controller: _descriptionController,
+                    // initialValue: _store.description,
+                    onChanged: (value) => _store.description = value,
+                    decoration: const InputDecoration(
+                      labelText: 'Descrição',
+                      hintText: 'Digite a descrição da tarefa',
+                    ),
+                  ),
+                  Observer(
+                    builder: (_) => BottomSheetMenu(
+                      items: _store.userList.map((e) => e.username).toList(),
+                      selectedItemIndex: _store.ownerIndex,
+                      onSelectedItemIndex: (index) {
+                        _store.ownerIndex = index;
+                        _store.assigneeIndex = index;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Relator',
+                        hintText: 'Selecione o relator da tarefa',
+                        errorText: _store.error.owner,
+                      ),
+                    ),
+                  ),
+                  // Observer(
+                  //   builder: (_) => BottomSheetMenu(
+                  //     items: _store.userList.map((e) => e.username).toList(),
+                  //     selectedItemIndex: _store.assigneeIndex,
+                  //     onSelectedItemIndex: (index) =>
+                  //         _store.assigneeIndex = index,
+                  //     decoration: InputDecoration(
+                  //       labelText: 'Responsável',
+                  //       hintText:
+                  //           'Selecione o responsável pela execução da tarefa',
+                  //       errorText: _store.error.assignee,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Observer(
+                  //   builder: (_) => BottomSheetMenu(
+                  //     items: _store.userList.map((e) => e.username).toList(),
+                  //     selectedItemIndex: _store.relatedIndex,
+                  //     onSelectedItemIndex: (index) => _store.relatedIndex = index,
+                  //     decoration: const InputDecoration(
+                  //       labelText: 'Relacionado',
+                  //       hintText: 'Selecione alguém relacionado a essa tarefa',
+                  //     ),
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 8,
+                    ),
+                    child: Row(
+                      children: [
+                        Observer(
+                          builder: (context) {
+                            return Checkbox.adaptive(
+                              value: _store.isDone,
+                              onChanged: (value) =>
+                                  _store.isDone = value ?? false,
+                            );
+                          },
+                        ),
+                        const Text('Finalizada'),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                      onPressed: _store.validateAll,
+                      child: const Text('Salvar'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -184,8 +235,9 @@ class BottomSheetMenu extends StatelessWidget {
           shape: const StadiumBorder(),
         ),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               selectedItemIndex == -1 ? '' : items[selectedItemIndex],
