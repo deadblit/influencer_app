@@ -113,7 +113,6 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                 children: <Widget>[
                   TextFormField(
                     controller: _titleController,
-                    // initialValue: _store.title,
                     onChanged: (value) => _store.title = value,
                     decoration: InputDecoration(
                       labelText: 'Título',
@@ -121,10 +120,8 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                       errorText: _store.error.title,
                     ),
                   ),
-
                   TextFormField(
                     controller: _descriptionController,
-                    // initialValue: _store.description,
                     onChanged: (value) => _store.description = value,
                     decoration: const InputDecoration(
                       labelText: 'Descrição',
@@ -137,7 +134,6 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                       selectedItemIndex: _store.ownerIndex,
                       onSelectedItemIndex: (index) {
                         _store.ownerIndex = index;
-                        _store.assigneeIndex = index;
                       },
                       decoration: InputDecoration(
                         labelText: 'Relator',
@@ -146,31 +142,32 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                       ),
                     ),
                   ),
-                  // Observer(
-                  //   builder: (_) => BottomSheetMenu(
-                  //     items: _store.userList.map((e) => e.username).toList(),
-                  //     selectedItemIndex: _store.assigneeIndex,
-                  //     onSelectedItemIndex: (index) =>
-                  //         _store.assigneeIndex = index,
-                  //     decoration: InputDecoration(
-                  //       labelText: 'Responsável',
-                  //       hintText:
-                  //           'Selecione o responsável pela execução da tarefa',
-                  //       errorText: _store.error.assignee,
-                  //     ),
-                  //   ),
-                  // ),
-                  // Observer(
-                  //   builder: (_) => BottomSheetMenu(
-                  //     items: _store.userList.map((e) => e.username).toList(),
-                  //     selectedItemIndex: _store.relatedIndex,
-                  //     onSelectedItemIndex: (index) => _store.relatedIndex = index,
-                  //     decoration: const InputDecoration(
-                  //       labelText: 'Relacionado',
-                  //       hintText: 'Selecione alguém relacionado a essa tarefa',
-                  //     ),
-                  //   ),
-                  // ),
+                  Observer(
+                    builder: (_) => BottomSheetMenu(
+                      items: _store.userList.map((e) => e.username).toList(),
+                      selectedItemIndex: _store.assigneeIndex,
+                      onSelectedItemIndex: (index) =>
+                          _store.assigneeIndex = index,
+                      decoration: InputDecoration(
+                        labelText: 'Responsável',
+                        hintText:
+                            'Selecione o responsável pela execução da tarefa',
+                        errorText: _store.error.assignee,
+                      ),
+                    ),
+                  ),
+                  Observer(
+                    builder: (_) => BottomSheetMenu(
+                      items: _store.userList.map((e) => e.username).toList(),
+                      selectedItemIndex: _store.relatedIndex,
+                      onSelectedItemIndex: (index) =>
+                          _store.relatedIndex = index,
+                      decoration: const InputDecoration(
+                        labelText: 'Relacionado',
+                        hintText: 'Selecione alguém relacionado a essa tarefa',
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 20,

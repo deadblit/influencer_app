@@ -6,12 +6,10 @@ import '../../domain/entities/task_state.dart';
 
 extension ObjectMapper on ParseObject {
   Task toTask(List<User> userList) {
-    final owner =
-        userList.where((e) => e.id == get("owner").objectId).firstOrNull;
+    final owner = userList.where((e) => e.id == get("ownerId")).firstOrNull;
     final assignee =
-        userList.where((e) => e.id == get("assignee").objectId).firstOrNull;
-    final related =
-        userList.where((e) => e.id == get("related")?.objectId).firstOrNull;
+        userList.where((e) => e.id == get("assigneeId")).firstOrNull;
+    final related = userList.where((e) => e.id == get("relatedId")).firstOrNull;
 
     final task = Task(
       id: objectId!,

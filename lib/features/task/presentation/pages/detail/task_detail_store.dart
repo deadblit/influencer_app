@@ -182,7 +182,7 @@ abstract class TaskDetailStoreBase with Store {
 
     final owner = userList[ownerIndex];
     final assignee = userList[assigneeIndex];
-    final related = relatedIndex == -1 ? null : userList[ownerIndex];
+    final related = relatedIndex == -1 ? null : userList[relatedIndex];
 
     final result = await updateTask(UpdateTaskParams(
       id: taskId!,
