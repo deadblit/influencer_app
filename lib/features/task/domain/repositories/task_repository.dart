@@ -8,6 +8,7 @@ abstract class TaskRepository {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String title,
     String? description,
   });
@@ -23,6 +24,7 @@ abstract class TaskRepository {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String state,
     DateTime? doneAt,
     required String title,

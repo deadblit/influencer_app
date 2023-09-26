@@ -9,6 +9,7 @@ class ParseTaskDatasource {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String title,
     String? description,
   }) async {
@@ -21,6 +22,10 @@ class ParseTaskDatasource {
 
     if (relatedId != null) {
       task.set('relatedId', relatedId);
+    }
+
+    if (campaignId != null) {
+      task.set('campaign', ParseObject('Campaign')..objectId = campaignId);
     }
 
     final response = await task.save();
@@ -82,6 +87,7 @@ class ParseTaskDatasource {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String state,
     DateTime? doneAt,
     required String title,
@@ -100,6 +106,10 @@ class ParseTaskDatasource {
 
       if (relatedId != null) {
         task.set('relatedId', relatedId);
+      }
+
+      if (campaignId != null) {
+        task.set('campaign', ParseObject('Campaign')..objectId = campaignId);
       }
 
       response = await task.save();

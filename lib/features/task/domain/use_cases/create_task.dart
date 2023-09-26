@@ -18,6 +18,7 @@ class CreateTask extends Usecase<Unit, CreateTaskParams> {
       ownerId: params.ownerId,
       assigneeId: params.assigneeId,
       relatedId: params.relatedId,
+      campaignId: params.campaignId,
       title: params.title,
       description: params.description,
     );
@@ -30,6 +31,7 @@ class CreateTaskParams with _$CreateTaskParams {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String title,
     String? description,
   }) = _CreateTaskParams;

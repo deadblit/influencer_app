@@ -21,6 +21,7 @@ class TaskRepositoryImpl implements TaskRepository {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String title,
     String? description,
   }) async {
@@ -29,6 +30,7 @@ class TaskRepositoryImpl implements TaskRepository {
         ownerId: ownerId,
         assigneeId: assigneeId,
         relatedId: relatedId,
+        campaignId: campaignId,
         title: title,
         description: description,
       );
@@ -91,6 +93,7 @@ class TaskRepositoryImpl implements TaskRepository {
     required String ownerId,
     required String assigneeId,
     String? relatedId,
+    String? campaignId,
     required String state,
     DateTime? doneAt,
     required String title,
@@ -102,6 +105,7 @@ class TaskRepositoryImpl implements TaskRepository {
         ownerId: ownerId,
         assigneeId: assigneeId,
         relatedId: relatedId,
+        campaignId: campaignId,
         state: state,
         doneAt: doneAt,
         title: title,

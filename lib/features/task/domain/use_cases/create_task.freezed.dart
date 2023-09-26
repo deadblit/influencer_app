@@ -19,6 +19,7 @@ mixin _$CreateTaskParams {
   String get ownerId => throw _privateConstructorUsedError;
   String get assigneeId => throw _privateConstructorUsedError;
   String? get relatedId => throw _privateConstructorUsedError;
+  String? get campaignId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $CreateTaskParamsCopyWith<$Res> {
       {String ownerId,
       String assigneeId,
       String? relatedId,
+      String? campaignId,
       String title,
       String? description});
 }
@@ -57,6 +59,7 @@ class _$CreateTaskParamsCopyWithImpl<$Res, $Val extends CreateTaskParams>
     Object? ownerId = null,
     Object? assigneeId = null,
     Object? relatedId = freezed,
+    Object? campaignId = freezed,
     Object? title = null,
     Object? description = freezed,
   }) {
@@ -72,6 +75,10 @@ class _$CreateTaskParamsCopyWithImpl<$Res, $Val extends CreateTaskParams>
       relatedId: freezed == relatedId
           ? _value.relatedId
           : relatedId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      campaignId: freezed == campaignId
+          ? _value.campaignId
+          : campaignId // ignore: cast_nullable_to_non_nullable
               as String?,
       title: null == title
           ? _value.title
@@ -97,6 +104,7 @@ abstract class _$$_CreateTaskParamsCopyWith<$Res>
       {String ownerId,
       String assigneeId,
       String? relatedId,
+      String? campaignId,
       String title,
       String? description});
 }
@@ -115,6 +123,7 @@ class __$$_CreateTaskParamsCopyWithImpl<$Res>
     Object? ownerId = null,
     Object? assigneeId = null,
     Object? relatedId = freezed,
+    Object? campaignId = freezed,
     Object? title = null,
     Object? description = freezed,
   }) {
@@ -130,6 +139,10 @@ class __$$_CreateTaskParamsCopyWithImpl<$Res>
       relatedId: freezed == relatedId
           ? _value.relatedId
           : relatedId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      campaignId: freezed == campaignId
+          ? _value.campaignId
+          : campaignId // ignore: cast_nullable_to_non_nullable
               as String?,
       title: null == title
           ? _value.title
@@ -150,6 +163,7 @@ class _$_CreateTaskParams implements _CreateTaskParams {
       {required this.ownerId,
       required this.assigneeId,
       this.relatedId,
+      this.campaignId,
       required this.title,
       this.description});
 
@@ -160,13 +174,15 @@ class _$_CreateTaskParams implements _CreateTaskParams {
   @override
   final String? relatedId;
   @override
+  final String? campaignId;
+  @override
   final String title;
   @override
   final String? description;
 
   @override
   String toString() {
-    return 'CreateTaskParams(ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, title: $title, description: $description)';
+    return 'CreateTaskParams(ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, campaignId: $campaignId, title: $title, description: $description)';
   }
 
   @override
@@ -179,14 +195,16 @@ class _$_CreateTaskParams implements _CreateTaskParams {
                 other.assigneeId == assigneeId) &&
             (identical(other.relatedId, relatedId) ||
                 other.relatedId == relatedId) &&
+            (identical(other.campaignId, campaignId) ||
+                other.campaignId == campaignId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, ownerId, assigneeId, relatedId, title, description);
+  int get hashCode => Object.hash(runtimeType, ownerId, assigneeId, relatedId,
+      campaignId, title, description);
 
   @JsonKey(ignore: true)
   @override
@@ -200,6 +218,7 @@ abstract class _CreateTaskParams implements CreateTaskParams {
       {required final String ownerId,
       required final String assigneeId,
       final String? relatedId,
+      final String? campaignId,
       required final String title,
       final String? description}) = _$_CreateTaskParams;
 
@@ -209,6 +228,8 @@ abstract class _CreateTaskParams implements CreateTaskParams {
   String get assigneeId;
   @override
   String? get relatedId;
+  @override
+  String? get campaignId;
   @override
   String get title;
   @override

@@ -20,6 +20,7 @@ mixin _$UpdateTaskParams {
   String get ownerId => throw _privateConstructorUsedError;
   String get assigneeId => throw _privateConstructorUsedError;
   String? get relatedId => throw _privateConstructorUsedError;
+  String? get campaignId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   TaskState get state => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $UpdateTaskParamsCopyWith<$Res> {
       String ownerId,
       String assigneeId,
       String? relatedId,
+      String? campaignId,
       String title,
       String? description,
       TaskState state,
@@ -64,6 +66,7 @@ class _$UpdateTaskParamsCopyWithImpl<$Res, $Val extends UpdateTaskParams>
     Object? ownerId = null,
     Object? assigneeId = null,
     Object? relatedId = freezed,
+    Object? campaignId = freezed,
     Object? title = null,
     Object? description = freezed,
     Object? state = null,
@@ -85,6 +88,10 @@ class _$UpdateTaskParamsCopyWithImpl<$Res, $Val extends UpdateTaskParams>
       relatedId: freezed == relatedId
           ? _value.relatedId
           : relatedId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      campaignId: freezed == campaignId
+          ? _value.campaignId
+          : campaignId // ignore: cast_nullable_to_non_nullable
               as String?,
       title: null == title
           ? _value.title
@@ -119,6 +126,7 @@ abstract class _$$_UpdateTaskParamsCopyWith<$Res>
       String ownerId,
       String assigneeId,
       String? relatedId,
+      String? campaignId,
       String title,
       String? description,
       TaskState state,
@@ -140,6 +148,7 @@ class __$$_UpdateTaskParamsCopyWithImpl<$Res>
     Object? ownerId = null,
     Object? assigneeId = null,
     Object? relatedId = freezed,
+    Object? campaignId = freezed,
     Object? title = null,
     Object? description = freezed,
     Object? state = null,
@@ -161,6 +170,10 @@ class __$$_UpdateTaskParamsCopyWithImpl<$Res>
       relatedId: freezed == relatedId
           ? _value.relatedId
           : relatedId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      campaignId: freezed == campaignId
+          ? _value.campaignId
+          : campaignId // ignore: cast_nullable_to_non_nullable
               as String?,
       title: null == title
           ? _value.title
@@ -190,6 +203,7 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
       required this.ownerId,
       required this.assigneeId,
       this.relatedId,
+      this.campaignId,
       required this.title,
       this.description,
       required this.state,
@@ -204,6 +218,8 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
   @override
   final String? relatedId;
   @override
+  final String? campaignId;
+  @override
   final String title;
   @override
   final String? description;
@@ -214,7 +230,7 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
 
   @override
   String toString() {
-    return 'UpdateTaskParams(id: $id, ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, title: $title, description: $description, state: $state, doneAt: $doneAt)';
+    return 'UpdateTaskParams(id: $id, ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, campaignId: $campaignId, title: $title, description: $description, state: $state, doneAt: $doneAt)';
   }
 
   @override
@@ -228,6 +244,8 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
                 other.assigneeId == assigneeId) &&
             (identical(other.relatedId, relatedId) ||
                 other.relatedId == relatedId) &&
+            (identical(other.campaignId, campaignId) ||
+                other.campaignId == campaignId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -237,7 +255,7 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
 
   @override
   int get hashCode => Object.hash(runtimeType, id, ownerId, assigneeId,
-      relatedId, title, description, state, doneAt);
+      relatedId, campaignId, title, description, state, doneAt);
 
   @JsonKey(ignore: true)
   @override
@@ -252,6 +270,7 @@ abstract class _UpdateTaskParams implements UpdateTaskParams {
       required final String ownerId,
       required final String assigneeId,
       final String? relatedId,
+      final String? campaignId,
       required final String title,
       final String? description,
       required final TaskState state,
@@ -265,6 +284,8 @@ abstract class _UpdateTaskParams implements UpdateTaskParams {
   String get assigneeId;
   @override
   String? get relatedId;
+  @override
+  String? get campaignId;
   @override
   String get title;
   @override
