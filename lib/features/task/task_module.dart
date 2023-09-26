@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'package:influencer_app/core/core_module.dart';
 import 'package:influencer_app/features/task/domain/use_cases/create_task.dart';
 import 'package:influencer_app/features/task/domain/use_cases/delete_task.dart';
 import 'package:influencer_app/features/task/domain/use_cases/get_all_tasks.dart';
@@ -20,6 +21,11 @@ import 'presentation/pages/list/task_list_page.dart';
 import 'presentation/pages/list/task_list_store.dart';
 
 class TaskModule extends Module {
+  @override
+  List<Module> get imports => [
+        CoreModule(),
+      ];
+
   @override
   void binds(Injector i) {
     i.add(ParseTaskDatasource.new);

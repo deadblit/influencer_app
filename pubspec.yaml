@@ -33,7 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_mobx: ^2.0.6+5
-  flutter_modular: ^6.0.3
+  flutter_modular: 6.3.2 # NÃO MEXER!!!
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   mobx: ^2.2.0
