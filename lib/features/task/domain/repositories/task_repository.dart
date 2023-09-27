@@ -17,7 +17,11 @@ abstract class TaskRepository {
 
   Future<Result<Task, Failure>> get(String id);
 
-  Future<Result<List<Task>, Failure>> getAll();
+  Future<Result<List<Task>, Failure>> getTaskList({
+    String? campaignId,
+    bool? isDone,
+    String? ownerUserId,
+  });
 
   Future<Result<Unit, Failure>> update({
     required String id,

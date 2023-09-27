@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:influencer_app/core/core_module.dart';
 import 'package:influencer_app/features/task/domain/use_cases/create_task.dart';
 import 'package:influencer_app/features/task/domain/use_cases/delete_task.dart';
-import 'package:influencer_app/features/task/domain/use_cases/get_all_tasks.dart';
+import 'package:influencer_app/features/task/domain/use_cases/get_filtered_tasks.dart';
 import 'package:influencer_app/features/task/domain/use_cases/get_task.dart';
 import 'package:influencer_app/features/task/presentation/pages/detail/task_detail_store.dart';
 import 'package:influencer_app/features/user/data/repositories/user_repository_impl.dart';
@@ -36,7 +36,7 @@ class TaskModule extends Module {
     i.add(CreateTask.new);
     i.add(DeleteTask.new);
     i.add(GetAllUsers.new);
-    i.add(GetAllTasks.new);
+    i.add(GetFilteredTasks.new);
     i.add(GetTask.new);
     i.add(UpdateTask.new);
 

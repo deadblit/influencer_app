@@ -65,10 +65,31 @@ class ParseTaskDatasource {
     return object;
   }
 
-  Future<List<ParseObject>> getAll() async {
+  Future<List<ParseObject>> getTaskList({
+    String? campaignId,
+    bool? isDone,
+    String? ownerUserId,
+  }) async {
     final ParseResponse response;
+    final taskClass = ParseObject('Task');
+
     try {
-      response = await ParseObject('Task').getAll();
+      final queryBuilder = QueryBuilder<ParseObject>(taskClass);
+
+      if (campaignId != null) {
+        queryBuilder.whereEqualTo(
+            'campaign', ParseObject('Campaign')..objectId = campaignId);
+      }
+
+      if (isDone != null) {
+        queryBuilder.whereValueExists('doneAt', isDone);
+      }
+
+      if (ownerUserId != null) {
+        queryBuilder.whereEqualTo('ownerId', ownerUserId);
+      }
+
+      response = await queryBuilder.query();
       response.throwOnFailure(
         "get all tasks failed",
         runtimeType.toString(),

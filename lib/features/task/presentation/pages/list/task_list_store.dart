@@ -4,7 +4,7 @@ import 'package:multiple_result/multiple_result.dart';
 
 import 'package:influencer_app/core/usecases/usecase.dart';
 import 'package:influencer_app/features/task/domain/use_cases/delete_task.dart';
-import 'package:influencer_app/features/task/domain/use_cases/get_all_tasks.dart';
+import 'package:influencer_app/features/task/domain/use_cases/get_filtered_tasks.dart';
 
 import '../../../domain/entities/task.dart';
 
@@ -26,7 +26,7 @@ abstract class TaskListStoreBase with Store {
 
   @action
   Future<void> getAll() async {
-    final getAllTasks = Modular.get<GetAllTasks>();
+    final getAllTasks = Modular.get<GetFilteredTasks>();
     isLoading = true;
     final result = await getAllTasks(NoParams());
     isLoading = false;

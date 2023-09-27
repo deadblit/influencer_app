@@ -70,11 +70,15 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Result<List<Task>, Failure>> getAll() async {
+  Future<Result<List<Task>, Failure>> getTaskList({
+    String? campaignId,
+    bool? isDone,
+    String? ownerUserId,
+  }) async {
     late final List<ParseObject> modelList;
     late final List<Task> entityList;
     try {
-      modelList = await _taskDatasource.getAll();
+      modelList = await _taskDatasource.getTaskList();
       entityList = await _convertTaskList(modelList);
       entityList.sort(
         (a, b) => a.updatedAt.compareTo(b.updatedAt) * -1,

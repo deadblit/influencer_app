@@ -21,6 +21,16 @@ abstract class BaseHomePage extends StatelessWidget {
 
   void reload();
 
+  bool canFilter() {
+    return true;
+  }
+
+  void filter() {}
+
+  bool isFiltered() {
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final messenger = ScaffoldMessenger.of(context);
@@ -30,6 +40,25 @@ abstract class BaseHomePage extends StatelessWidget {
         title: const Text('Aloha Influencer'),
         elevation: 2,
         actions: [
+          if (canFilter()) ...[
+            Stack(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    filter();
+                  },
+                  icon: const Icon(Icons.filter_list),
+                ),
+                if (isFiltered()) ...[
+                  Icon(
+                    Icons.circle,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                    size: 16,
+                  )
+                ],
+              ],
+            ),
+          ],
           IconButton(
             onPressed: () {
               reload();
