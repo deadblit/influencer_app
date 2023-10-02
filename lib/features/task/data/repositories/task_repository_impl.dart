@@ -78,7 +78,11 @@ class TaskRepositoryImpl implements TaskRepository {
     late final List<ParseObject> modelList;
     late final List<Task> entityList;
     try {
-      modelList = await _taskDatasource.getTaskList();
+      modelList = await _taskDatasource.getTaskList(
+        campaignId: campaignId,
+        isDone: isDone,
+        ownerUserId: ownerUserId,
+      );
       entityList = await _convertTaskList(modelList);
       entityList.sort(
         (a, b) => a.updatedAt.compareTo(b.updatedAt) * -1,

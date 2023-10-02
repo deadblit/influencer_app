@@ -18,7 +18,7 @@ class TaskListPage extends BaseHomePage {
     super.key,
     super.navigationIndex = HomeNavigationBar.destinationTasks,
   }) {
-    _store.getAll();
+    _store.load();
   }
 
   @override
@@ -49,7 +49,7 @@ class TaskListPage extends BaseHomePage {
             ],
             Expanded(
               child: RefreshIndicator(
-                onRefresh: _store.getAll,
+                onRefresh: _store.getTasks,
                 child: ListView.builder(
                   itemCount: _store.taskList.length,
                   itemBuilder: (context, index) => _buildItem(context, index),
@@ -74,7 +74,23 @@ class TaskListPage extends BaseHomePage {
 
   @override
   void reload() {
-    _store.getAll();
+    _store.load();
+  }
+
+  @override
+  bool canFilter() {
+    return true;
+  }
+
+  @override
+  Future<void> filter() async {
+    await Modular.to.pushNamed('/tasks/filter/');
+    reload();
+  }
+
+  @override
+  bool isFiltered() {
+    return _store.isFiltered;
   }
 
   Widget _buildItem(BuildContext context, int index) {

@@ -8,14 +8,19 @@ import '../repositories/task_repository.dart';
 
 part 'get_filtered_tasks.freezed.dart';
 
-class GetFilteredTasks extends Usecase<List<Task>, NoParams> {
+class GetFilteredTasks extends Usecase<List<Task>, GetFilteredTasksParams> {
   final TaskRepository taskRepository;
 
   GetFilteredTasks(this.taskRepository);
 
   @override
-  Future<Result<List<Task>, Failure>> call(NoParams params) async {
-    return await taskRepository.getTaskList();
+  Future<Result<List<Task>, Failure>> call(
+      GetFilteredTasksParams params) async {
+    return await taskRepository.getTaskList(
+      campaignId: params.campaignId,
+      isDone: params.isDone,
+      ownerUserId: params.ownerUserId,
+    );
   }
 }
 
