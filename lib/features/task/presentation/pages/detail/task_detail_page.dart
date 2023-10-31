@@ -145,8 +145,8 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                         _store.ownerIndex = index;
                       },
                       decoration: InputDecoration(
-                        labelText: 'Relator',
-                        hintText: 'Selecione o relator da tarefa',
+                        labelText: 'Criador',
+                        hintText: 'Selecione o criador da tarefa',
                         errorText: _store.error.owner,
                       ),
                     ),

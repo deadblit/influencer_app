@@ -241,7 +241,7 @@ abstract class TaskDetailStoreBase with Store {
 
   @action
   void validateOwnerIndex(int value) {
-    error.owner = value < 0 ? 'Selecione o relator da tarefa' : null;
+    error.owner = value < 0 ? 'Selecione o criador da tarefa' : null;
   }
 
   @action

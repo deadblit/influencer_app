@@ -91,8 +91,8 @@ class TaskFilterDialogState extends State<TaskFilterDialog> {
                       _store.ownerUserIndex = index;
                     },
                     decoration: const InputDecoration(
-                      labelText: 'Relator',
-                      hintText: 'Selecione o relator da tarefa',
+                      labelText: 'Criador',
+                      hintText: 'Selecione o criador da tarefa',
                       errorText: null,
                     ),
                   ),
