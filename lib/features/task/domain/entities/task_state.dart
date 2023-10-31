@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 @JsonEnum(valueField: 'value')
 enum TaskState {
-  created('created', 'Criada'),
+  created('created', 'Nova'),
   toDo('toDo', 'A fazer'),
   inProgress('inProgress', 'Em progresso'),
   done('done', 'Finalizada'),
