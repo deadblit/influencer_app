@@ -4,7 +4,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../domain/entities/task_state.dart';
 import 'task_detail_store.dart';
+
+enum ColorEnum {
+  red,
+  green,
+  blue,
+  yellow,
+  purple,
+}
 
 class TaskDetailPage extends StatefulWidget {
   final String taskId;
@@ -168,24 +177,16 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 8,
-                    ),
-                    child: Row(
-                      children: [
-                        Observer(
-                          builder: (context) {
-                            return Checkbox.adaptive(
-                              value: _store.isDone,
-                              onChanged: (value) =>
-                                  _store.isDone = value ?? false,
-                            );
-                          },
-                        ),
-                        const Text('Finalizada'),
-                      ],
+                  Observer(
+                    builder: (_) => BottomSheetMenu(
+                      items: _store.taskStateValues,
+                      selectedItemIndex: _store.statusIndex,
+                      onSelectedItemIndex: (index) =>
+                          _store.statusIndex = index,
+                      decoration: const InputDecoration(
+                        labelText: 'Status',
+                        hintText: 'Selecione o status da tarefa',
+                      ),
                     ),
                   ),
                   Padding(

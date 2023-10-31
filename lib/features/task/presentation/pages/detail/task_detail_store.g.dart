@@ -224,6 +224,22 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
     });
   }
 
+  late final _$statusIndexAtom =
+      Atom(name: 'TaskDetailStoreBase.statusIndex', context: context);
+
+  @override
+  int get statusIndex {
+    _$statusIndexAtom.reportRead();
+    return super.statusIndex;
+  }
+
+  @override
+  set statusIndex(int value) {
+    _$statusIndexAtom.reportWrite(value, super.statusIndex, () {
+      super.statusIndex = value;
+    });
+  }
+
   late final _$loadTaskAsyncAction =
       AsyncAction('TaskDetailStoreBase.loadTask', context: context);
 
@@ -319,6 +335,7 @@ title: ${title},
 description: ${description},
 isDone: ${isDone},
 error: ${error},
+statusIndex: ${statusIndex},
 canSave: ${canSave}
     ''';
   }
