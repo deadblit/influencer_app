@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../domain/entities/task_state.dart';
 import 'task_detail_store.dart';
-
-enum ColorEnum {
-  red,
-  green,
-  blue,
-  yellow,
-  purple,
-}
 
 class TaskDetailPage extends StatefulWidget {
   final String taskId;
