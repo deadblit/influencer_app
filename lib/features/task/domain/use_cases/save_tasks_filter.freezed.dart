@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SaveTasksFilterParams {
   String? get campaignId => throw _privateConstructorUsedError;
-  bool? get isDone => throw _privateConstructorUsedError;
+  TaskState? get taskState => throw _privateConstructorUsedError;
   String? get ownerUserId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $SaveTasksFilterParamsCopyWith<$Res> {
           $Res Function(SaveTasksFilterParams) then) =
       _$SaveTasksFilterParamsCopyWithImpl<$Res, SaveTasksFilterParams>;
   @useResult
-  $Res call({String? campaignId, bool? isDone, String? ownerUserId});
+  $Res call({String? campaignId, TaskState? taskState, String? ownerUserId});
 }
 
 /// @nodoc
@@ -49,7 +49,7 @@ class _$SaveTasksFilterParamsCopyWithImpl<$Res,
   @override
   $Res call({
     Object? campaignId = freezed,
-    Object? isDone = freezed,
+    Object? taskState = freezed,
     Object? ownerUserId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -57,10 +57,10 @@ class _$SaveTasksFilterParamsCopyWithImpl<$Res,
           ? _value.campaignId
           : campaignId // ignore: cast_nullable_to_non_nullable
               as String?,
-      isDone: freezed == isDone
-          ? _value.isDone
-          : isDone // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      taskState: freezed == taskState
+          ? _value.taskState
+          : taskState // ignore: cast_nullable_to_non_nullable
+              as TaskState?,
       ownerUserId: freezed == ownerUserId
           ? _value.ownerUserId
           : ownerUserId // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,7 @@ abstract class _$$_SaveTasksFilterParamsCopyWith<$Res>
       __$$_SaveTasksFilterParamsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? campaignId, bool? isDone, String? ownerUserId});
+  $Res call({String? campaignId, TaskState? taskState, String? ownerUserId});
 }
 
 /// @nodoc
@@ -92,7 +92,7 @@ class __$$_SaveTasksFilterParamsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? campaignId = freezed,
-    Object? isDone = freezed,
+    Object? taskState = freezed,
     Object? ownerUserId = freezed,
   }) {
     return _then(_$_SaveTasksFilterParams(
@@ -100,10 +100,10 @@ class __$$_SaveTasksFilterParamsCopyWithImpl<$Res>
           ? _value.campaignId
           : campaignId // ignore: cast_nullable_to_non_nullable
               as String?,
-      isDone: freezed == isDone
-          ? _value.isDone
-          : isDone // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      taskState: freezed == taskState
+          ? _value.taskState
+          : taskState // ignore: cast_nullable_to_non_nullable
+              as TaskState?,
       ownerUserId: freezed == ownerUserId
           ? _value.ownerUserId
           : ownerUserId // ignore: cast_nullable_to_non_nullable
@@ -115,18 +115,18 @@ class __$$_SaveTasksFilterParamsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SaveTasksFilterParams implements _SaveTasksFilterParams {
-  _$_SaveTasksFilterParams({this.campaignId, this.isDone, this.ownerUserId});
+  _$_SaveTasksFilterParams({this.campaignId, this.taskState, this.ownerUserId});
 
   @override
   final String? campaignId;
   @override
-  final bool? isDone;
+  final TaskState? taskState;
   @override
   final String? ownerUserId;
 
   @override
   String toString() {
-    return 'SaveTasksFilterParams(campaignId: $campaignId, isDone: $isDone, ownerUserId: $ownerUserId)';
+    return 'SaveTasksFilterParams(campaignId: $campaignId, taskState: $taskState, ownerUserId: $ownerUserId)';
   }
 
   @override
@@ -136,13 +136,15 @@ class _$_SaveTasksFilterParams implements _SaveTasksFilterParams {
             other is _$_SaveTasksFilterParams &&
             (identical(other.campaignId, campaignId) ||
                 other.campaignId == campaignId) &&
-            (identical(other.isDone, isDone) || other.isDone == isDone) &&
+            (identical(other.taskState, taskState) ||
+                other.taskState == taskState) &&
             (identical(other.ownerUserId, ownerUserId) ||
                 other.ownerUserId == ownerUserId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, campaignId, isDone, ownerUserId);
+  int get hashCode =>
+      Object.hash(runtimeType, campaignId, taskState, ownerUserId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,13 +157,13 @@ class _$_SaveTasksFilterParams implements _SaveTasksFilterParams {
 abstract class _SaveTasksFilterParams implements SaveTasksFilterParams {
   factory _SaveTasksFilterParams(
       {final String? campaignId,
-      final bool? isDone,
+      final TaskState? taskState,
       final String? ownerUserId}) = _$_SaveTasksFilterParams;
 
   @override
   String? get campaignId;
   @override
-  bool? get isDone;
+  TaskState? get taskState;
   @override
   String? get ownerUserId;
   @override

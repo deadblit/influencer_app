@@ -16,18 +16,10 @@ class SaveTasksFilter extends Usecase<Unit, SaveTasksFilterParams> {
 
   @override
   Future<Result<Unit, Failure>> call(SaveTasksFilterParams params) async {
-    final TaskState? taskState;
-
-    if (params.isDone == true) {
-      taskState = TaskState.done;
-    } else {
-      taskState = null;
-    }
-
     return await taskFilterRepository.save(TaskFilter(
       ownerUserId: params.ownerUserId,
       campaignId: params.campaignId,
-      state: taskState,
+      state: params.taskState,
     ));
   }
 }
@@ -36,7 +28,7 @@ class SaveTasksFilter extends Usecase<Unit, SaveTasksFilterParams> {
 class SaveTasksFilterParams with _$SaveTasksFilterParams {
   factory SaveTasksFilterParams({
     String? campaignId,
-    bool? isDone,
+    TaskState? taskState,
     String? ownerUserId,
   }) = _SaveTasksFilterParams;
 }
