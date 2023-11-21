@@ -41,6 +41,9 @@ abstract class TaskFilterStoreBase with Store {
   @observable
   bool shouldCloseDialog = false;
 
+  @readonly
+  int? _taskStatusIndex;
+
   Future<void> init() async {
     await loadUsers();
     await loadFilters();
@@ -142,5 +145,10 @@ abstract class TaskFilterStoreBase with Store {
   @action
   void clearError() {
     errorMessage = null;
+  }
+
+  @action
+  void updateTaskStatusIndex(int? index) {
+    _taskStatusIndex = index;
   }
 }

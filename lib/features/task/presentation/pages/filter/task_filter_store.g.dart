@@ -121,6 +121,24 @@ mixin _$TaskFilterStore on TaskFilterStoreBase, Store {
     });
   }
 
+  late final _$_taskStatusIndexAtom =
+      Atom(name: 'TaskFilterStoreBase._taskStatusIndex', context: context);
+
+  int? get taskStatusIndex {
+    _$_taskStatusIndexAtom.reportRead();
+    return super._taskStatusIndex;
+  }
+
+  @override
+  int? get _taskStatusIndex => taskStatusIndex;
+
+  @override
+  set _taskStatusIndex(int? value) {
+    _$_taskStatusIndexAtom.reportWrite(value, super._taskStatusIndex, () {
+      super._taskStatusIndex = value;
+    });
+  }
+
   late final _$loadFiltersAsyncAction =
       AsyncAction('TaskFilterStoreBase.loadFilters', context: context);
 
@@ -162,6 +180,17 @@ mixin _$TaskFilterStore on TaskFilterStoreBase, Store {
         name: 'TaskFilterStoreBase.clearError');
     try {
       return super.clearError();
+    } finally {
+      _$TaskFilterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateTaskStatusIndex(int? index) {
+    final _$actionInfo = _$TaskFilterStoreBaseActionController.startAction(
+        name: 'TaskFilterStoreBase.updateTaskStatusIndex');
+    try {
+      return super.updateTaskStatusIndex(index);
     } finally {
       _$TaskFilterStoreBaseActionController.endAction(_$actionInfo);
     }
