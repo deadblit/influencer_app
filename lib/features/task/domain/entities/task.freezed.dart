@@ -30,6 +30,7 @@ mixin _$Task {
   DateTime? get doneAt => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  int? get progress => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $TaskCopyWith<$Res> {
       TaskState state,
       DateTime? doneAt,
       String title,
-      String? description});
+      String? description,
+      int? progress});
 
   $UserCopyWith<$Res> get owner;
   $UserCopyWith<$Res> get assignee;
@@ -81,6 +83,7 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
     Object? doneAt = freezed,
     Object? title = null,
     Object? description = freezed,
+    Object? progress = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -123,6 +126,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      progress: freezed == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -171,7 +178,8 @@ abstract class _$$_TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
       TaskState state,
       DateTime? doneAt,
       String title,
-      String? description});
+      String? description,
+      int? progress});
 
   @override
   $UserCopyWith<$Res> get owner;
@@ -200,6 +208,7 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
     Object? doneAt = freezed,
     Object? title = null,
     Object? description = freezed,
+    Object? progress = freezed,
   }) {
     return _then(_$_Task(
       id: null == id
@@ -242,6 +251,10 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      progress: freezed == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -259,7 +272,8 @@ class _$_Task implements _Task {
       required this.state,
       this.doneAt,
       required this.title,
-      this.description});
+      this.description,
+      required this.progress});
 
   factory _$_Task.fromJson(Map<String, dynamic> json) => _$$_TaskFromJson(json);
 
@@ -283,10 +297,12 @@ class _$_Task implements _Task {
   final String title;
   @override
   final String? description;
+  @override
+  final int? progress;
 
   @override
   String toString() {
-    return 'Task(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, owner: $owner, assignee: $assignee, related: $related, state: $state, doneAt: $doneAt, title: $title, description: $description)';
+    return 'Task(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, owner: $owner, assignee: $assignee, related: $related, state: $state, doneAt: $doneAt, title: $title, description: $description, progress: $progress)';
   }
 
   @override
@@ -307,13 +323,15 @@ class _$_Task implements _Task {
             (identical(other.doneAt, doneAt) || other.doneAt == doneAt) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.progress, progress) ||
+                other.progress == progress));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, createdAt, updatedAt, owner,
-      assignee, related, state, doneAt, title, description);
+      assignee, related, state, doneAt, title, description, progress);
 
   @JsonKey(ignore: true)
   @override
@@ -340,7 +358,8 @@ abstract class _Task implements Task {
       required final TaskState state,
       final DateTime? doneAt,
       required final String title,
-      final String? description}) = _$_Task;
+      final String? description,
+      required final int? progress}) = _$_Task;
 
   factory _Task.fromJson(Map<String, dynamic> json) = _$_Task.fromJson;
 
@@ -364,6 +383,8 @@ abstract class _Task implements Task {
   String get title;
   @override
   String? get description;
+  @override
+  int? get progress;
   @override
   @JsonKey(ignore: true)
   _$$_TaskCopyWith<_$_Task> get copyWith => throw _privateConstructorUsedError;

@@ -24,6 +24,7 @@ class TaskRepositoryImpl implements TaskRepository {
     String? campaignId,
     required String title,
     String? description,
+    required int progress,
   }) async {
     try {
       await _taskDatasource.create(
@@ -33,6 +34,7 @@ class TaskRepositoryImpl implements TaskRepository {
         campaignId: campaignId,
         title: title,
         description: description,
+        progress: progress,
       );
     } on Exception catch (error) {
       error.logMessage('create() error', name: runtimeType.toString());
@@ -106,6 +108,7 @@ class TaskRepositoryImpl implements TaskRepository {
     DateTime? doneAt,
     required String title,
     String? description,
+    int? progress,
   }) async {
     try {
       await _taskDatasource.update(
@@ -118,6 +121,7 @@ class TaskRepositoryImpl implements TaskRepository {
         doneAt: doneAt,
         title: title,
         description: description,
+        progress: progress,
       );
     } on Exception catch (error) {
       error.logMessage('update() error', name: runtimeType.toString());

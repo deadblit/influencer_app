@@ -22,6 +22,7 @@ extension ObjectMapper on ParseObject {
       doneAt: get("doneAt"),
       title: get("title"),
       description: get("description"),
+      progress: get("progress"),
     );
 
     return task;

@@ -25,6 +25,7 @@ mixin _$UpdateTaskParams {
   String? get description => throw _privateConstructorUsedError;
   TaskState get state => throw _privateConstructorUsedError;
   DateTime? get doneAt => throw _privateConstructorUsedError;
+  int? get progress => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UpdateTaskParamsCopyWith<UpdateTaskParams> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $UpdateTaskParamsCopyWith<$Res> {
       String title,
       String? description,
       TaskState state,
-      DateTime? doneAt});
+      DateTime? doneAt,
+      int? progress});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$UpdateTaskParamsCopyWithImpl<$Res, $Val extends UpdateTaskParams>
     Object? description = freezed,
     Object? state = null,
     Object? doneAt = freezed,
+    Object? progress = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -109,6 +112,10 @@ class _$UpdateTaskParamsCopyWithImpl<$Res, $Val extends UpdateTaskParams>
           ? _value.doneAt
           : doneAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      progress: freezed == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$_UpdateTaskParamsCopyWith<$Res>
       String title,
       String? description,
       TaskState state,
-      DateTime? doneAt});
+      DateTime? doneAt,
+      int? progress});
 }
 
 /// @nodoc
@@ -153,6 +161,7 @@ class __$$_UpdateTaskParamsCopyWithImpl<$Res>
     Object? description = freezed,
     Object? state = null,
     Object? doneAt = freezed,
+    Object? progress = freezed,
   }) {
     return _then(_$_UpdateTaskParams(
       id: null == id
@@ -191,6 +200,10 @@ class __$$_UpdateTaskParamsCopyWithImpl<$Res>
           ? _value.doneAt
           : doneAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      progress: freezed == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -207,7 +220,8 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
       required this.title,
       this.description,
       required this.state,
-      this.doneAt});
+      this.doneAt,
+      this.progress});
 
   @override
   final String id;
@@ -227,10 +241,12 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
   final TaskState state;
   @override
   final DateTime? doneAt;
+  @override
+  final int? progress;
 
   @override
   String toString() {
-    return 'UpdateTaskParams(id: $id, ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, campaignId: $campaignId, title: $title, description: $description, state: $state, doneAt: $doneAt)';
+    return 'UpdateTaskParams(id: $id, ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, campaignId: $campaignId, title: $title, description: $description, state: $state, doneAt: $doneAt, progress: $progress)';
   }
 
   @override
@@ -250,12 +266,14 @@ class _$_UpdateTaskParams implements _UpdateTaskParams {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.state, state) || other.state == state) &&
-            (identical(other.doneAt, doneAt) || other.doneAt == doneAt));
+            (identical(other.doneAt, doneAt) || other.doneAt == doneAt) &&
+            (identical(other.progress, progress) ||
+                other.progress == progress));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, ownerId, assigneeId,
-      relatedId, campaignId, title, description, state, doneAt);
+      relatedId, campaignId, title, description, state, doneAt, progress);
 
   @JsonKey(ignore: true)
   @override
@@ -274,7 +292,8 @@ abstract class _UpdateTaskParams implements UpdateTaskParams {
       required final String title,
       final String? description,
       required final TaskState state,
-      final DateTime? doneAt}) = _$_UpdateTaskParams;
+      final DateTime? doneAt,
+      final int? progress}) = _$_UpdateTaskParams;
 
   @override
   String get id;
@@ -294,6 +313,8 @@ abstract class _UpdateTaskParams implements UpdateTaskParams {
   TaskState get state;
   @override
   DateTime? get doneAt;
+  @override
+  int? get progress;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateTaskParamsCopyWith<_$_UpdateTaskParams> get copyWith =>

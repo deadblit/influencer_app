@@ -21,6 +21,7 @@ class CreateTask extends Usecase<Unit, CreateTaskParams> {
       campaignId: params.campaignId,
       title: params.title,
       description: params.description,
+      progress: params.progress,
     );
   }
 }
@@ -34,5 +35,6 @@ class CreateTaskParams with _$CreateTaskParams {
     String? campaignId,
     required String title,
     String? description,
+    required int progress,
   }) = _CreateTaskParams;
 }

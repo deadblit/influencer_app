@@ -11,6 +11,7 @@ abstract class TaskRepository {
     String? campaignId,
     required String title,
     String? description,
+    required int progress,
   });
 
   Future<Result<Unit, Failure>> delete(String id);
@@ -33,5 +34,6 @@ abstract class TaskRepository {
     DateTime? doneAt,
     required String title,
     String? description,
+    int? progress
   });
 }

@@ -240,6 +240,24 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
     });
   }
 
+  late final _$_progressAtom =
+      Atom(name: 'TaskDetailStoreBase._progress', context: context);
+
+  int get progress {
+    _$_progressAtom.reportRead();
+    return super._progress;
+  }
+
+  @override
+  int get _progress => progress;
+
+  @override
+  set _progress(int value) {
+    _$_progressAtom.reportWrite(value, super._progress, () {
+      super._progress = value;
+    });
+  }
+
   late final _$loadTaskAsyncAction =
       AsyncAction('TaskDetailStoreBase.loadTask', context: context);
 
@@ -274,6 +292,17 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
 
   late final _$TaskDetailStoreBaseActionController =
       ActionController(name: 'TaskDetailStoreBase', context: context);
+
+  @override
+  void onUpdateSliderProgress(double value) {
+    final _$actionInfo = _$TaskDetailStoreBaseActionController.startAction(
+        name: 'TaskDetailStoreBase.onChangedSliderProgress');
+    try {
+      return super.onUpdateSliderProgress(value);
+    } finally {
+      _$TaskDetailStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void clearError() {
@@ -314,6 +343,17 @@ mixin _$TaskDetailStore on TaskDetailStoreBase, Store {
         name: 'TaskDetailStoreBase.validateTitle');
     try {
       return super.validateTitle(value);
+    } finally {
+      _$TaskDetailStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateTaskStatusIndex(int? index) {
+    final _$actionInfo = _$TaskDetailStoreBaseActionController.startAction(
+        name: 'TaskDetailStoreBase.updateTaskStatusIndex');
+    try {
+      return super.updateTaskStatusIndex(index);
     } finally {
       _$TaskDetailStoreBaseActionController.endAction(_$actionInfo);
     }

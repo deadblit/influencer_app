@@ -12,13 +12,15 @@ class ParseTaskDatasource {
     String? campaignId,
     required String title,
     String? description,
+    required progress,
   }) async {
     final task = ParseObject('Task')
       ..set('ownerId', ownerId)
       ..set('assigneeId', assigneeId)
       ..set('state', 'created')
       ..set('title', title)
-      ..set('description', description);
+      ..set('description', description)
+      ..set('progress', progress);
 
     if (relatedId != null) {
       task.set('relatedId', relatedId);
@@ -113,6 +115,7 @@ class ParseTaskDatasource {
     DateTime? doneAt,
     required String title,
     String? description,
+    int? progress,
   }) async {
     final ParseResponse response;
     try {
@@ -131,6 +134,9 @@ class ParseTaskDatasource {
 
       if (campaignId != null) {
         task.set('campaign', ParseObject('Campaign')..objectId = campaignId);
+      }
+      if (progress != null) {
+        task.set('progress', progress);
       }
 
       response = await task.save();

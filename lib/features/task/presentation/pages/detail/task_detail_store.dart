@@ -67,6 +67,16 @@ abstract class TaskDetailStoreBase with Store {
   @observable
   int statusIndex = -1;
 
+  @readonly
+  int _progress = 0;
+
+  int get _progressToSave {
+    var taskState = TaskState.values[statusIndex];
+    final progress = taskState == TaskState.done ? 100 : _progress;
+
+    return progress;
+  }
+
   late List<ReactionDisposer> _disposers;
 
   void setupValidations() {
@@ -111,6 +121,7 @@ abstract class TaskDetailStoreBase with Store {
             .index;
         errorMessage = null;
         isTaskLoaded = true;
+        _progress = task.progress ?? 0;
         break;
 
       case Error():
@@ -172,6 +183,7 @@ abstract class TaskDetailStoreBase with Store {
       relatedId: related?.id,
       title: title!,
       description: description,
+      progress: _progressToSave,
     ));
     isLoading = false;
 
@@ -206,6 +218,7 @@ abstract class TaskDetailStoreBase with Store {
       description: description,
       state: state,
       doneAt: state == TaskState.done ? DateTime.now() : null,
+      progress: _progressToSave,
     ));
 
     isLoading = false;
@@ -253,6 +266,20 @@ abstract class TaskDetailStoreBase with Store {
 
     if (canSave) {
       save();
+    }
+  }
+
+  @action
+  void onUpdateSliderProgress(double value) {
+    _progress = value.toInt();
+  }
+
+  @action
+  void updateTaskStatusIndex(int? index) {
+    statusIndex = index ?? -1;
+
+    if (setStatus(statusIndex) == TaskState.done) {
+      onUpdateSliderProgress(100.0);
     }
   }
 }

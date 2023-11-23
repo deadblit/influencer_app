@@ -172,13 +172,14 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                     Observer(
                       builder: (_) => TaskStateBottomSheet(
                         selectedItemIndex: _store.statusIndex,
-                        onSelectedItemIndex: (index) {
-                          if (index != null) {
-                            _store.statusIndex = index;
-                          }
-                        },
+                        onSelectedItemIndex: _store.updateTaskStatusIndex,
                       ),
                     ),
+                  Observer(
+                    builder: (_) => TaskProgressSlider(
+                        currentSliderValue: _store.progress.toDouble(),
+                        onChanged: _store.onUpdateSliderProgress),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(

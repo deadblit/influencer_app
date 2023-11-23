@@ -1,50 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:influencer_app/features/app_theme.dart';
 
-class SliderDiscret extends StatefulWidget {
-  const SliderDiscret({super.key, required this.currentSliderValue});
+class TaskProgressSlider extends StatefulWidget {
+  const TaskProgressSlider({
+    super.key,
+    required this.currentSliderValue,
+    required this.onChanged,
+  });
 
   final double currentSliderValue;
+  final ValueChanged<double>? onChanged;
 
   @override
-  State<SliderDiscret> createState() => _SliderDiscretState();
+  State<TaskProgressSlider> createState() => _TaskProgressSliderState();
 }
 
-class _SliderDiscretState extends State<SliderDiscret> {
-  late double _currentSliderValue;
-  @override
-  void initState() {
-    _currentSliderValue = widget.currentSliderValue;
-    super.initState();
-  }
-
+class _TaskProgressSliderState extends State<TaskProgressSlider> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     SliderDiscretTheme sliderTheme = theme.extension<SliderDiscretTheme>()!;
+    final double currentSliderValue = widget.currentSliderValue;
 
     return InputDecorator(
-      decoration: const InputDecoration(label: Text('Percentual concluido')),
+      decoration: const InputDecoration(
+        label: Text(
+          'Percentual concluido',
+        ),
+      ),
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
           showValueIndicator: ShowValueIndicator.never,
           thumbShape: const _ThumbShape(),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 48.0),
-          child: Slider(
-            value: _currentSliderValue,
-            max: 100,
-            divisions: 10,
-            label: _currentSliderValue.round().toString(),
-            activeColor: sliderTheme.sliderColors[_currentSliderValue.toInt()],
-            onChanged: (double value) {
-              setState(() {
-                _currentSliderValue = value;
-              });
-            },
+          valueIndicatorTextStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        child: Padding(
+            padding: const EdgeInsets.only(top: 34.0),
+            child: Slider(
+                value: currentSliderValue,
+                max: 100,
+                divisions: 10,
+                label: currentSliderValue.round().toString(),
+                activeColor:
+                    sliderTheme.sliderColors[currentSliderValue.toInt()],
+                onChanged: widget.onChanged)),
       ),
     );
   }
