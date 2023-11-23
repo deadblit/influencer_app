@@ -25,7 +25,7 @@ class _TaskProgressSliderState extends State<TaskProgressSlider> {
     return InputDecorator(
       decoration: const InputDecoration(
         label: Text(
-          'Percentual concluido',
+          'Percentual concluído',
         ),
       ),
       child: SliderTheme(
