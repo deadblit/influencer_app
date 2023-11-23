@@ -64,6 +64,9 @@ abstract class TaskDetailStoreBase with Store {
   @computed
   bool get canSave => !error.hasErrors;
 
+  @observable
+  int statusIndex = -1;
+
   late List<ReactionDisposer> _disposers;
 
   void setupValidations() {
@@ -78,6 +81,12 @@ abstract class TaskDetailStoreBase with Store {
     for (final d in _disposers) {
       d();
     }
+  }
+
+  List<String> get taskStateValues {
+    return TaskState.values
+        .map((state) => state.description.toString())
+        .toList();
   }
 
   @action
@@ -97,7 +106,9 @@ abstract class TaskDetailStoreBase with Store {
             task.related == null ? -1 : userList.indexOf(task.related!);
         title = task.title;
         description = task.description;
-        isDone = task.state == TaskState.done;
+        statusIndex = TaskState.values
+            .firstWhere((element) => task.state == element)
+            .index;
         errorMessage = null;
         isTaskLoaded = true;
         break;
@@ -183,6 +194,8 @@ abstract class TaskDetailStoreBase with Store {
     final owner = userList[ownerIndex];
     final assignee = userList[assigneeIndex];
     final related = relatedIndex == -1 ? null : userList[relatedIndex];
+    final state =
+        statusIndex == -1 ? TaskState.created : setStatus(statusIndex);
 
     final result = await updateTask(UpdateTaskParams(
       id: taskId!,
@@ -191,7 +204,7 @@ abstract class TaskDetailStoreBase with Store {
       relatedId: related?.id,
       title: title!,
       description: description,
-      state: isDone ? TaskState.done : TaskState.created,
+      state: state,
       doneAt: isDone ? DateTime.now() : null,
     ));
 
@@ -208,6 +221,19 @@ abstract class TaskDetailStoreBase with Store {
     }
   }
 
+  TaskState setStatus(int index) {
+    if (index == 0) {
+      return TaskState.created;
+    } else if (index == 1) {
+      return TaskState.toDo;
+    } else if (index == 2) {
+      return TaskState.inProgress;
+    } else if (index == 3) {
+      return TaskState.done;
+    }
+    return TaskState.cancelled;
+  }
+
   @action
   void clearError() {
     errorMessage = null;
@@ -215,7 +241,7 @@ abstract class TaskDetailStoreBase with Store {
 
   @action
   void validateOwnerIndex(int value) {
-    error.owner = value < 0 ? 'Selecione o relator da tarefa' : null;
+    error.owner = value < 0 ? 'Selecione o criador da tarefa' : null;
   }
 
   @action

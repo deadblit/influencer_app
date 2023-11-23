@@ -41,6 +41,16 @@ abstract class TaskFilterStoreBase with Store {
   @observable
   bool shouldCloseDialog = false;
 
+  @readonly
+  int? _taskStatusIndex;
+
+  @computed
+  TaskState? get _taskState {
+    return _taskStatusIndex != null
+        ? TaskState.values.elementAtOrNull(_taskStatusIndex!)
+        : null;
+  }
+
   Future<void> init() async {
     await loadUsers();
     await loadFilters();
@@ -101,10 +111,8 @@ abstract class TaskFilterStoreBase with Store {
     final ownerUserId =
         ownerUserIndex == -1 ? null : userList[ownerUserIndex].id;
 
-    final result = await saveFilter(SaveTasksFilterParams(
-      ownerUserId: ownerUserId,
-      isDone: isDone ? isDone : null,
-    ));
+    final result = await saveFilter(
+        SaveTasksFilterParams(ownerUserId: ownerUserId, taskState: _taskState));
 
     isLoading = false;
 
@@ -142,5 +150,10 @@ abstract class TaskFilterStoreBase with Store {
   @action
   void clearError() {
     errorMessage = null;
+  }
+
+  @action
+  void updateTaskStatusIndex(int? index) {
+    _taskStatusIndex = index;
   }
 }

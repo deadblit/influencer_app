@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -136,8 +135,8 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                         _store.ownerIndex = index;
                       },
                       decoration: InputDecoration(
-                        labelText: 'Relator',
-                        hintText: 'Selecione o relator da tarefa',
+                        labelText: 'Criador',
+                        hintText: 'Selecione o criador da tarefa',
                         errorText: _store.error.owner,
                       ),
                     ),
@@ -168,24 +167,16 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 8,
-                    ),
-                    child: Row(
-                      children: [
-                        Observer(
-                          builder: (context) {
-                            return Checkbox.adaptive(
-                              value: _store.isDone,
-                              onChanged: (value) =>
-                                  _store.isDone = value ?? false,
-                            );
-                          },
-                        ),
-                        const Text('Finalizada'),
-                      ],
+                  Observer(
+                    builder: (_) => BottomSheetMenu(
+                      items: _store.taskStateValues,
+                      selectedItemIndex: _store.statusIndex,
+                      onSelectedItemIndex: (index) =>
+                          _store.statusIndex = index,
+                      decoration: const InputDecoration(
+                        labelText: 'Status',
+                        hintText: 'Selecione o status da tarefa',
+                      ),
                     ),
                   ),
                   Padding(

@@ -9,6 +9,14 @@ part of 'task_filter_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TaskFilterStore on TaskFilterStoreBase, Store {
+  Computed<TaskState?>? _$_taskStateComputed;
+
+  @override
+  TaskState? get _taskState =>
+      (_$_taskStateComputed ??= Computed<TaskState?>(() => super._taskState,
+              name: 'TaskFilterStoreBase._taskState'))
+          .value;
+
   late final _$userListAtom =
       Atom(name: 'TaskFilterStoreBase.userList', context: context);
 
@@ -121,6 +129,24 @@ mixin _$TaskFilterStore on TaskFilterStoreBase, Store {
     });
   }
 
+  late final _$_taskStatusIndexAtom =
+      Atom(name: 'TaskFilterStoreBase._taskStatusIndex', context: context);
+
+  int? get taskStatusIndex {
+    _$_taskStatusIndexAtom.reportRead();
+    return super._taskStatusIndex;
+  }
+
+  @override
+  int? get _taskStatusIndex => taskStatusIndex;
+
+  @override
+  set _taskStatusIndex(int? value) {
+    _$_taskStatusIndexAtom.reportWrite(value, super._taskStatusIndex, () {
+      super._taskStatusIndex = value;
+    });
+  }
+
   late final _$loadFiltersAsyncAction =
       AsyncAction('TaskFilterStoreBase.loadFilters', context: context);
 
@@ -162,6 +188,17 @@ mixin _$TaskFilterStore on TaskFilterStoreBase, Store {
         name: 'TaskFilterStoreBase.clearError');
     try {
       return super.clearError();
+    } finally {
+      _$TaskFilterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateTaskStatusIndex(int? index) {
+    final _$actionInfo = _$TaskFilterStoreBaseActionController.startAction(
+        name: 'TaskFilterStoreBase.updateTaskStatusIndex');
+    try {
+      return super.updateTaskStatusIndex(index);
     } finally {
       _$TaskFilterStoreBaseActionController.endAction(_$actionInfo);
     }
