@@ -8,7 +8,8 @@ class TaskStateBottomSheet extends StatefulWidget {
     super.key,
     required this.selectedItemIndex,
     required this.onSelectedItemIndex,
-  }) : items = TaskState.values.map((e) => e.description).toList();
+  })  : items = TaskState.values.map((e) => e.description).toList(),
+        defaultLabel = '';
 
   TaskStateBottomSheet.withNull({
     super.key,
@@ -16,11 +17,14 @@ class TaskStateBottomSheet extends StatefulWidget {
     required this.onSelectedItemIndex,
   })  : items = TaskState.values.map((e) => e.description).toList()
           ..add('Qualquer estado'),
-        selectedItemIndex = selectedItemIndex ?? -1;
+        selectedItemIndex = selectedItemIndex ?? TaskState.values.length,
+        defaultLabel = '-';
 
   final List<String> items;
   final int selectedItemIndex;
   final Function(int? index) onSelectedItemIndex;
+  final String defaultLabel;
+
   @override
   State<TaskStateBottomSheet> createState() => _TaskStateBottomSheetState();
 }
@@ -32,11 +36,11 @@ class _TaskStateBottomSheetState extends State<TaskStateBottomSheet> {
       items: widget.items,
       selectedItemIndex: widget.selectedItemIndex,
       onSelectedItemIndex: (index) {
-        var taskStateIndex = TaskState.values.elementAtOrNull(index)?.index;
+        int? taskStateIndex = TaskState.values.elementAtOrNull(index)?.index;
 
         widget.onSelectedItemIndex(taskStateIndex);
       },
-      defaultLabel: 'Qualquer estado',
+      defaultLabel: widget.defaultLabel,
       decoration: const InputDecoration(
         labelText: 'Status',
         hintText: 'Selecione o status da tarefa',
