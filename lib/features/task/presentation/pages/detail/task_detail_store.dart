@@ -205,7 +205,7 @@ abstract class TaskDetailStoreBase with Store {
       title: title!,
       description: description,
       state: state,
-      doneAt: isDone ? DateTime.now() : null,
+      doneAt: state == TaskState.done ? DateTime.now() : null,
     ));
 
     isLoading = false;
@@ -222,16 +222,7 @@ abstract class TaskDetailStoreBase with Store {
   }
 
   TaskState setStatus(int index) {
-    if (index == 0) {
-      return TaskState.created;
-    } else if (index == 1) {
-      return TaskState.toDo;
-    } else if (index == 2) {
-      return TaskState.inProgress;
-    } else if (index == 3) {
-      return TaskState.done;
-    }
-    return TaskState.cancelled;
+    return TaskState.values[index];
   }
 
   @action
