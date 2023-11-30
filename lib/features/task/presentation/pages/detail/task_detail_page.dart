@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:influencer_app/features/task/presentation/widgets/widgets.dart';
 import 'package:mobx/mobx.dart';
 
 import 'task_detail_store.dart';
@@ -167,17 +168,17 @@ class TaskDetailPageState extends State<TaskDetailPage> {
                       ),
                     ),
                   ),
-                  Observer(
-                    builder: (_) => BottomSheetMenu(
-                      items: _store.taskStateValues,
-                      selectedItemIndex: _store.statusIndex,
-                      onSelectedItemIndex: (index) =>
-                          _store.statusIndex = index,
-                      decoration: const InputDecoration(
-                        labelText: 'Status',
-                        hintText: 'Selecione o status da tarefa',
+                  if (!widget.isNewTask)
+                    Observer(
+                      builder: (_) => TaskStateBottomSheet(
+                        selectedItemIndex: _store.statusIndex,
+                        onSelectedItemIndex: _store.updateTaskStatusIndex,
                       ),
                     ),
+                  Observer(
+                    builder: (_) => TaskProgressSlider(
+                        currentSliderValue: _store.progress.toDouble(),
+                        onChanged: _store.onUpdateSliderProgress),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20),

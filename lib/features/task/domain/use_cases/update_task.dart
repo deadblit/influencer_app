@@ -26,6 +26,7 @@ class UpdateTask extends Usecase<Unit, UpdateTaskParams> {
       description: params.description,
       state: params.state.value,
       doneAt: params.doneAt,
+      progress: params.progress,
     );
   }
 }
@@ -42,5 +43,6 @@ class UpdateTaskParams with _$UpdateTaskParams {
     String? description,
     required TaskState state,
     DateTime? doneAt,
+    int? progress,
   }) = _UpdateTaskParams;
 }

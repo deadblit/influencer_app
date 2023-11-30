@@ -22,6 +22,7 @@ mixin _$CreateTaskParams {
   String? get campaignId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  int get progress => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateTaskParamsCopyWith<CreateTaskParams> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $CreateTaskParamsCopyWith<$Res> {
       String? relatedId,
       String? campaignId,
       String title,
-      String? description});
+      String? description,
+      int progress});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$CreateTaskParamsCopyWithImpl<$Res, $Val extends CreateTaskParams>
     Object? campaignId = freezed,
     Object? title = null,
     Object? description = freezed,
+    Object? progress = null,
   }) {
     return _then(_value.copyWith(
       ownerId: null == ownerId
@@ -88,6 +91,10 @@ class _$CreateTaskParamsCopyWithImpl<$Res, $Val extends CreateTaskParams>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -106,7 +113,8 @@ abstract class _$$_CreateTaskParamsCopyWith<$Res>
       String? relatedId,
       String? campaignId,
       String title,
-      String? description});
+      String? description,
+      int progress});
 }
 
 /// @nodoc
@@ -126,6 +134,7 @@ class __$$_CreateTaskParamsCopyWithImpl<$Res>
     Object? campaignId = freezed,
     Object? title = null,
     Object? description = freezed,
+    Object? progress = null,
   }) {
     return _then(_$_CreateTaskParams(
       ownerId: null == ownerId
@@ -152,6 +161,10 @@ class __$$_CreateTaskParamsCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -165,7 +178,8 @@ class _$_CreateTaskParams implements _CreateTaskParams {
       this.relatedId,
       this.campaignId,
       required this.title,
-      this.description});
+      this.description,
+      required this.progress});
 
   @override
   final String ownerId;
@@ -179,10 +193,12 @@ class _$_CreateTaskParams implements _CreateTaskParams {
   final String title;
   @override
   final String? description;
+  @override
+  final int progress;
 
   @override
   String toString() {
-    return 'CreateTaskParams(ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, campaignId: $campaignId, title: $title, description: $description)';
+    return 'CreateTaskParams(ownerId: $ownerId, assigneeId: $assigneeId, relatedId: $relatedId, campaignId: $campaignId, title: $title, description: $description, progress: $progress)';
   }
 
   @override
@@ -199,12 +215,14 @@ class _$_CreateTaskParams implements _CreateTaskParams {
                 other.campaignId == campaignId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.progress, progress) ||
+                other.progress == progress));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, ownerId, assigneeId, relatedId,
-      campaignId, title, description);
+      campaignId, title, description, progress);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +238,8 @@ abstract class _CreateTaskParams implements CreateTaskParams {
       final String? relatedId,
       final String? campaignId,
       required final String title,
-      final String? description}) = _$_CreateTaskParams;
+      final String? description,
+      required final int progress}) = _$_CreateTaskParams;
 
   @override
   String get ownerId;
@@ -234,6 +253,8 @@ abstract class _CreateTaskParams implements CreateTaskParams {
   String get title;
   @override
   String? get description;
+  @override
+  int get progress;
   @override
   @JsonKey(ignore: true)
   _$$_CreateTaskParamsCopyWith<_$_CreateTaskParams> get copyWith =>

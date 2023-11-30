@@ -20,6 +20,7 @@ class Task with _$Task {
     DateTime? doneAt,
     required String title,
     String? description,
+    required int? progress
   }) = _Task;
 
   factory Task.fromJson(Map<String, Object?> json) => _$TaskFromJson(json);
